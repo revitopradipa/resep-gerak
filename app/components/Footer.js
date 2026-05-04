@@ -2,23 +2,22 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#1A3644" }} className="text-white">
+    <footer style={{ background: "#0C2D3D" }} className="text-white">
       <div className="max-w-[1280px] mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12">
           {/* Brand */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-9 h-9 bg-accent-gold rounded-lg flex items-center justify-center">
-                <span
-                  className="material-symbols-outlined text-primary-container text-xl"
-                  style={{ fontVariationSettings: "'FILL' 1" }}
-                >
-                  sports_gymnastics
-                </span>
-              </div>
-              <span className="font-oswald font-bold text-xl tracking-tight">
-                RESEP GERAK
-              </span>
+              <img
+                src="/Logo_ResepGerak_2.svg"
+                alt="Resep Gerak Logo"
+                className="h-9 w-auto brightness-0 invert"
+              />
+              <img
+                src="/Logo_ResepGerak_3.svg"
+                alt="Resep Gerak"
+                className="h-5 w-auto brightness-0 invert"
+              />
             </div>
             <p className="font-inter text-sm text-white/60 leading-relaxed max-w-xs">
               Portal edukasi gerak pertama di Indonesia. Dikembangkan oleh

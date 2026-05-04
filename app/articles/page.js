@@ -241,7 +241,7 @@ const CustomDropdown = ({ label, value, options, onChange, placeholder }) => {
       <button
         onClick={() => setIsOpen(!isOpen)}
         onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-        className="w-full flex items-center justify-between bg-[#11222C] text-white rounded-xl px-4 md:px-5 py-3.5 md:py-4 border border-white/5 hover:bg-white/5 hover:border-accent-gold/50 focus:outline-none focus:border-accent-gold transition-all font-inter text-sm shadow-inner"
+        className="w-full flex items-center justify-between bg-[#021E2B] text-white rounded-xl px-4 md:px-5 py-3.5 md:py-4 border border-white/5 hover:bg-white/5 hover:border-accent-gold/50 focus:outline-none focus:border-accent-gold transition-all font-inter text-sm shadow-inner"
       >
         <span className={value === 'All' ? 'text-white/40' : 'text-white font-medium'}>
           {value === 'All' ? placeholder : value}
@@ -252,7 +252,7 @@ const CustomDropdown = ({ label, value, options, onChange, placeholder }) => {
       </button>
 
       {isOpen && (
-        <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-[#1A3644] border border-white/10 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] z-50 max-h-60 overflow-y-auto hide-scrollbar animate-fade-in-up">
+        <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-[#0C2D3D] border border-white/10 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] z-50 max-h-60 overflow-y-auto hide-scrollbar animate-fade-in-up">
           <button
             onClick={() => { onChange('All'); setIsOpen(false); }}
             className={`w-full text-left px-5 py-3 font-inter text-sm transition-colors ${value === 'All' ? 'bg-accent-gold/10 text-accent-gold font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
@@ -354,7 +354,7 @@ export default function ArticlesPage() {
     <>
       <Navbar />
 
-      <main className="min-h-screen bg-[#1A3644] pt-32 pb-20">
+      <main className="min-h-screen bg-[#0C2D3D] pt-32 pb-20">
         <div className="max-w-[1280px] mx-auto px-6">
           {/* Header */}
           <div className="mb-12">
@@ -384,14 +384,14 @@ export default function ArticlesPage() {
                     placeholder="Cari artikel, panduan..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-[#11222C] text-white placeholder-white/40 rounded-xl pl-11 md:pl-12 pr-4 py-3.5 md:py-4 border border-white/5 focus:outline-none focus:border-accent-gold transition-colors font-inter shadow-inner text-sm md:text-base"
+                    className="w-full bg-[#021E2B] text-white placeholder-white/40 rounded-xl pl-11 md:pl-12 pr-4 py-3.5 md:py-4 border border-white/5 focus:outline-none focus:border-accent-gold transition-colors font-inter shadow-inner text-sm md:text-base"
                   />
                 </div>
-                
+
                 {/* Mobile Filter Toggle Button */}
-                <button 
+                <button
                   onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-                  className={`md:hidden flex items-center justify-center px-4 rounded-xl border transition-colors ${isMobileFiltersOpen ? 'bg-accent-gold text-primary-container border-accent-gold' : 'bg-[#11222C] text-white/60 border-white/5 hover:bg-white/5'}`}
+                  className={`md:hidden flex items-center justify-center px-4 rounded-xl border transition-colors ${isMobileFiltersOpen ? 'bg-accent-gold text-white border-accent-gold' : 'bg-[#021E2B] text-white/60 border-white/5 hover:bg-white/5'}`}
                 >
                   <span className="material-symbols-outlined">tune</span>
                 </button>
@@ -399,12 +399,12 @@ export default function ArticlesPage() {
 
               <div className="flex w-full lg:w-auto overflow-x-auto hide-scrollbar pb-1 -mb-1">
                 {/* Type Filter */}
-                <div className="flex bg-[#11222C] p-1.5 rounded-xl border border-white/5 w-full min-w-max">
+                <div className="flex bg-[#021E2B] p-1.5 rounded-xl border border-white/5 w-full min-w-max">
                   {['All', 'Pencegahan', 'Cedera'].map(type => (
                     <button
                       key={type}
                       onClick={() => setFilterType(type)}
-                      className={`flex-1 px-5 md:px-6 py-2 md:py-2.5 rounded-lg font-inter text-sm transition-all whitespace-nowrap ${filterType === type ? 'bg-accent-gold text-primary-container font-bold shadow-md' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
+                      className={`flex-1 px-5 md:px-6 py-2 md:py-2.5 rounded-lg font-inter text-sm transition-all whitespace-nowrap ${filterType === type ? 'bg-accent-gold text-white font-bold shadow-md' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
                     >
                       {type === 'All' ? 'Semua Kondisi' : type === 'Cedera' ? 'Penanganan Cedera' : type}
                     </button>
@@ -499,10 +499,10 @@ export default function ArticlesPage() {
                     alt={item.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#11222C] via-[#1A3644]/70 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#021E2B] via-[#0C2D3D]/70 to-transparent" />
 
                   <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
-                    <span className="font-lexend text-[10px] font-bold text-[#D9AD36] uppercase tracking-widest mb-3">
+                    <span className="font-lexend text-[10px] font-bold text-[#0794B9] uppercase tracking-widest mb-3">
                       {item.tag}
                     </span>
                     <h3 className="font-lexend text-xl md:text-2xl font-bold text-white mb-4 leading-snug">

@@ -39,7 +39,7 @@ export default function ArticleDetail({ params }) {
 
           {/* Article Header */}
           <header className="mb-10">
-            <span className="inline-block font-lexend text-[10px] font-bold text-[#D9AD36] uppercase tracking-widest mb-4 bg-accent-gold/10 px-3 py-1 rounded-full">
+            <span className="inline-block font-lexend text-[10px] font-bold text-[#0794B9] uppercase tracking-widest mb-4 bg-accent-gold/10 px-3 py-1 rounded-full">
               {article.tag}
             </span>
             <h1 className="font-oswald font-bold text-4xl md:text-5xl text-primary-container mb-6 leading-tight">
@@ -65,9 +65,9 @@ export default function ArticleDetail({ params }) {
 
           {/* Featured Image */}
           <figure className="mb-12 rounded-2xl overflow-hidden shadow-lg">
-            <img 
-              src={article.img} 
-              alt={article.title} 
+            <img
+              src={article.img}
+              alt={article.title}
               className="w-full h-[400px] object-cover"
             />
           </figure>

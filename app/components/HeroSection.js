@@ -27,7 +27,7 @@ export default function HeroSection() {
           className="font-oswald font-bold text-white text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] uppercase tracking-tight mb-6 drop-shadow-lg animate-fade-in-up"
           style={{ animationDelay: '0.4s' }}
         >
-          MOVEMENT IS MEDICINE
+          <span className="text-accent-gold">MOVEMENT</span> IS MEDICINE
         </h1>
 
         <p
@@ -39,7 +39,7 @@ export default function HeroSection() {
 
         <a
           href="#pillars"
-          className="inline-flex items-center justify-center font-lexend font-semibold text-base bg-accent-gold text-primary-container px-8 py-4 rounded-lg hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all duration-200 shadow-md animate-fade-in-up"
+          className="inline-flex items-center justify-center font-lexend font-semibold text-base bg-accent-gold text-white px-8 py-4 rounded-lg hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all duration-200 shadow-md animate-fade-in-up"
           style={{ animationDelay: '0.8s' }}
         >
           DISCOVER YOUR PATH

@@ -30,27 +30,25 @@ export default function Navbar({ theme = "dark" }) {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
             ? "nav-glass shadow-md py-3"
             : "bg-transparent py-5"
-        }`}
+          }`}
       >
         <div className="max-w-[1280px] mx-auto flex items-center justify-between px-6 lg:px-8">
           {/* Brand */}
           <Link href="/#hero" className="flex items-center gap-2 group">
-            <div className="w-9 h-9 bg-accent-gold rounded-lg flex items-center justify-center transition-transform group-hover:scale-110">
-              <span className="material-symbols-outlined text-primary-container text-xl" style={{ fontVariationSettings: "'FILL' 1" }}>
-                sports_gymnastics
-              </span>
-            </div>
-            <span
-              className={`font-oswald font-bold text-xl tracking-tight transition-colors ${
-                scrolled || theme === "light" ? "text-primary-container" : "text-white"
-              }`}
-            >
-              RESEP GERAK
-            </span>
+            <img
+              src="/Logo_ResepGerak_2.svg"
+              alt="Resep Gerak Logo"
+              className="h-9 w-auto transition-transform group-hover:scale-110"
+            />
+            <img
+              src="/Logo_ResepGerak_3.svg"
+              alt="Resep Gerak"
+              className={`h-5 w-auto transition-opacity ${scrolled || theme === "light" ? "opacity-100" : "brightness-0 invert"
+                }`}
+            />
           </Link>
 
           {/* Desktop Nav */}
@@ -59,11 +57,10 @@ export default function Navbar({ theme = "dark" }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`font-lexend uppercase tracking-wider font-semibold text-xs px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent-gold/10 hover:text-accent-gold ${
-                  scrolled || theme === "light"
+                className={`font-lexend uppercase tracking-wider font-semibold text-xs px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent-gold/10 hover:text-accent-gold ${scrolled || theme === "light"
                     ? "text-on-surface-variant"
                     : "text-white/80 hover:text-white"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -74,7 +71,7 @@ export default function Navbar({ theme = "dark" }) {
           <div className="flex items-center gap-3">
             <Link
               href="/#subscribe"
-              className="hidden sm:inline-flex font-lexend uppercase tracking-wider font-bold text-xs bg-accent-gold text-primary-container px-5 py-2.5 rounded-lg hover:bg-accent-gold-hover transition-all active:scale-95 shadow-sm"
+              className="hidden sm:inline-flex font-lexend uppercase tracking-wider font-bold text-xs bg-accent-gold text-white px-5 py-2.5 rounded-lg hover:bg-accent-gold-hover transition-all active:scale-95 shadow-sm"
             >
               Konsultasi
             </Link>
@@ -82,9 +79,8 @@ export default function Navbar({ theme = "dark" }) {
             {/* Hamburger */}
             <button
               onClick={() => setDrawerOpen(true)}
-              className={`lg:hidden p-2 rounded-lg transition-colors ${
-                scrolled || theme === "light" ? "text-primary-container hover:bg-surface-container" : "text-white hover:bg-white/10"
-              }`}
+              className={`lg:hidden p-2 rounded-lg transition-colors ${scrolled || theme === "light" ? "text-primary-container hover:bg-surface-container" : "text-white hover:bg-white/10"
+                }`}
               aria-label="Open menu"
             >
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -135,7 +131,7 @@ export default function Navbar({ theme = "dark" }) {
               <Link
                 href="/#subscribe"
                 onClick={() => setDrawerOpen(false)}
-                className="block text-center font-lexend uppercase tracking-wider font-bold text-sm bg-accent-gold text-primary-container px-5 py-3 rounded-lg hover:bg-accent-gold-hover transition-all"
+                className="block text-center font-lexend uppercase tracking-wider font-bold text-sm bg-accent-gold text-white px-5 py-3 rounded-lg hover:bg-accent-gold-hover transition-all"
               >
                 Konsultasi Sekarang
               </Link>

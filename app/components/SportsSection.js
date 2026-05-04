@@ -65,7 +65,7 @@ import Link from "next/link";
 
 export default function SportsSection() {
   return (
-    <section id="sports" className="py-20 bg-[#1A3644] text-white">
+    <section id="sports" className="py-20 bg-[#0C2D3D] text-white">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="font-oswald text-4xl md:text-5xl font-bold mb-4">Optimalkan Performa Anda</h2>

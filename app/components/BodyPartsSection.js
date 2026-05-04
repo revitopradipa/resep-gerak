@@ -124,27 +124,27 @@ export default function BodyPartsSection() {
   const imageSrc = view === "front" ? "/fullbody.jpg" : "/bodyback.png";
 
   return (
-    <section id="body-parts" className="py-20 md:py-24 bg-[#fef9f0]">
+    <section id="body-parts" className="py-20 md:py-24 bg-[#EFF7FA]">
       <div className="max-w-[1280px] mx-auto px-6 text-center">
-        <span className="font-lexend text-xs md:text-sm font-semibold tracking-widest text-[#D9AD36] uppercase block mb-3 reveal">
+        <span className="font-lexend text-xs md:text-sm font-semibold tracking-widest text-[#0794B9] uppercase block mb-3 reveal">
           PILIH AREA
         </span>
-        <h2 className="font-oswald text-4xl md:text-5xl lg:text-6xl text-[#1A3644] font-bold uppercase mb-8 tracking-wide reveal">
+        <h2 className="font-oswald text-4xl md:text-5xl lg:text-6xl text-[#0C2D3D] font-bold uppercase mb-8 tracking-wide reveal">
           PILIH BAGIAN TUBUHMU
         </h2>
 
         {/* Toggle View */}
         <div className="flex justify-center mb-8 reveal">
-          <div className="bg-[#1A3644]/10 p-1 rounded-xl inline-flex">
+          <div className="bg-[#0C2D3D]/10 p-1 rounded-xl inline-flex">
             <button
               onClick={() => handleViewChange("front")}
-              className={`px-8 py-2.5 rounded-lg font-lexend text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${view === "front" ? "bg-[#D9AD36] text-[#1A3644] shadow-md" : "text-[#1A3644]/60 hover:text-[#1A3644]"}`}
+              className={`px-8 py-2.5 rounded-lg font-lexend text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${view === "front" ? "bg-[#0794B9] text-white shadow-md" : "text-[#0C2D3D]/60 hover:text-[#0C2D3D]"}`}
             >
               Depan
             </button>
             <button
               onClick={() => handleViewChange("back")}
-              className={`px-8 py-2.5 rounded-lg font-lexend text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${view === "back" ? "bg-[#D9AD36] text-[#1A3644] shadow-md" : "text-[#1A3644]/60 hover:text-[#1A3644]"}`}
+              className={`px-8 py-2.5 rounded-lg font-lexend text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${view === "back" ? "bg-[#0794B9] text-white shadow-md" : "text-[#0C2D3D]/60 hover:text-[#0C2D3D]"}`}
             >
               Belakang
             </button>
@@ -166,8 +166,8 @@ export default function BodyPartsSection() {
               className="absolute group z-10 animate-fade-in block"
               style={{ top: pt.top, left: pt.left, transform: 'translate(-50%, -50%)' }}
             >
-              <div 
-                className="w-6 h-6 md:w-8 md:h-8 bg-[#D9AD36] rounded-full animate-pulse cursor-pointer shadow-lg border-2 border-white"
+              <div
+                className="w-6 h-6 md:w-8 md:h-8 bg-[#0794B9] rounded-full animate-pulse cursor-pointer shadow-lg border-2 border-white"
                 onMouseEnter={() => setActivePoint(i)}
                 onMouseLeave={() => setActivePoint(null)}
               ></div>
@@ -175,10 +175,10 @@ export default function BodyPartsSection() {
               {/* Tooltip */}
               <div className={`absolute left-1/2 -translate-x-1/2 bottom-full mb-3 md:mb-4 transition-opacity bg-white p-3 md:p-4 rounded-xl shadow-2xl text-left w-44 md:w-52 border border-gray-100 pointer-events-none z-20 ${activePoint === i ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}`}>
                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 bg-white rotate-45 border-r border-b border-gray-100"></div>
-                <p className="font-lexend text-[10px] md:text-xs font-semibold text-[#D9AD36] mb-1 tracking-wider uppercase">
+                <p className="font-lexend text-[10px] md:text-xs font-semibold text-[#0794B9] mb-1 tracking-wider uppercase">
                   Area Spesifik
                 </p>
-                <p className="font-oswald text-base md:text-lg font-bold text-[#1A3644] leading-tight mb-2">
+                <p className="font-oswald text-base md:text-lg font-bold text-[#0C2D3D] leading-tight mb-2">
                   {pt.label}
                 </p>
                 <p className="font-inter text-[10px] md:text-xs text-gray-600 leading-relaxed">

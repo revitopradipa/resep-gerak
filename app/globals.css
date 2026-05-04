@@ -3,25 +3,27 @@
 /* ─── Design Tokens ─── */
 :root {
   /* Primary Palette */
-  --primary-dark: #01212e;
-  --primary-container: #1A3644;
+  --primary-dark: #021E2B;
+  --primary-container: #0C2D3D;
   --secondary-blue: #40627c;
-  --accent-gold: #D9AD36;
-  --accent-gold-hover: #c49a2e;
+  --accent-gold: #0794B9;
+  --accent-gold-hover: #068AA6;
+  --accent-yellow: #EBBA07;
+  --accent-yellow-hover: #D4A606;
 
   /* Surfaces */
-  --surface: #fef9f0;
-  --surface-dim: #ded9d1;
-  --surface-container: #f2ede4;
-  --surface-container-low: #f8f3ea;
-  --surface-container-high: #ece8df;
-  --surface-container-highest: #e7e2d9;
-  --surface-container-lowest: #ffffff;
-  --background-light: #F4EFE6;
+  --surface: #EFF7FA;
+  --surface-dim: #CEDFEA;
+  --surface-container: #E3EFF4;
+  --surface-container-low: #EAF4F8;
+  --surface-container-high: #D8E8EF;
+  --surface-container-highest: #CEDFE8;
+  --surface-container-lowest: #FAFEFF;
+  --background-light: #E5F0F5;
 
   /* Gradients */
-  --gradient-start: #A3C6E4;
-  --gradient-end: #D0E3F3;
+  --gradient-start: #7DC8DB;
+  --gradient-end: #B4DDE9;
 
   /* Text */
   --text-on-dark: #FFFFFF;
@@ -43,6 +45,8 @@
   --color-secondary-blue: var(--secondary-blue);
   --color-accent-gold: var(--accent-gold);
   --color-accent-gold-hover: var(--accent-gold-hover);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-yellow-hover: var(--accent-yellow-hover);
 
   --color-surface: var(--surface);
   --color-surface-dim: var(--surface-dim);
@@ -90,6 +94,7 @@ body {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -101,6 +106,7 @@ body {
     opacity: 0;
     transform: translateX(-40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -112,6 +118,7 @@ body {
     opacity: 0;
     transform: translateX(40px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -123,6 +130,7 @@ body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -134,6 +142,7 @@ body {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -141,18 +150,24 @@ body {
 }
 
 @keyframes pulse-gold {
-  0%, 100% {
-    box-shadow: 0 0 0 0 rgba(217, 173, 54, 0.4);
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(7, 148, 185, 0.4);
   }
+
   50% {
-    box-shadow: 0 0 0 12px rgba(217, 173, 54, 0);
+    box-shadow: 0 0 0 12px rgba(7, 148, 185, 0);
   }
 }
 
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-8px);
   }
@@ -162,6 +177,7 @@ body {
   0% {
     transform: scale(1);
   }
+
   100% {
     transform: scale(1.08);
   }

@@ -41,7 +41,7 @@ export default function PhilosophySection() {
           <h2 className="font-oswald font-bold text-primary-container text-4xl md:text-5xl lg:text-7xl leading-[1.1] uppercase tracking-tight mb-8">
             Tidak Semua
             <br />
-            Orang Butuh <span className="text-outline">Obat,</span>
+            Orang Butuh <span className="text-accent-yellow">Obat,</span>
             <br />
             <span className="relative inline-block mt-2">
               <span className="relative z-10">Tapi Semua</span>

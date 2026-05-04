@@ -37,11 +37,11 @@ export default function ConditionsSection() {
           </div>
 
           <h2 className="font-oswald font-bold text-primary-container text-4xl md:text-5xl lg:text-6xl leading-[1.1] uppercase tracking-tight mb-8">
-            Resep Gerak
+            Resep <span className="text-accent-gold">Gerak</span>
             <br />
-            <span className="text-outline">Sesuai</span>
+            Sesuai
             <br />
-            Kondisi Anda
+            <span className="text-accent-yellow">Kondisi</span> Anda
           </h2>
 
           <p className="font-inter text-on-surface-variant text-lg leading-relaxed mb-8 font-light">
@@ -58,7 +58,7 @@ export default function ConditionsSection() {
               <Link
                 key={i}
                 href={`/articles?medicalIssue=${encodeURIComponent(c.name)}`}
-                className="condition-card bg-surface-container-lowest rounded-2xl border border-outline-variant/30 p-4 md:p-6 flex flex-col items-center justify-center text-center hover:border-accent-gold/60 transition-all duration-300 group shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_-10px_rgba(217,173,54,0.15)] reveal"
+                className="condition-card bg-surface-container-lowest rounded-2xl border border-outline-variant/30 p-4 md:p-6 flex flex-col items-center justify-center text-center hover:border-accent-gold/60 transition-all duration-300 group shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_-10px_rgba(7,148,185,0.15)] reveal"
                 style={{ transitionDelay: `${i * 50}ms` }}
               >
                 <div className="w-12 h-12 md:w-16 md:h-16 bg-surface-container rounded-2xl flex items-center justify-center mb-3 md:mb-4 group-hover:bg-accent-gold group-hover:scale-110 group-active:scale-95 transition-all duration-300">
@@ -72,7 +72,7 @@ export default function ConditionsSection() {
                 <p className="font-lexend font-semibold text-sm text-primary-container uppercase tracking-wide group-hover:text-accent-gold transition-colors duration-300">
                   {c.name}
                 </p>
-                
+
                 {/* Subtle bottom indicator line on hover */}
                 <div className="w-0 h-0.5 bg-accent-gold mt-4 rounded-full group-hover:w-8 transition-all duration-300"></div>
               </Link>
