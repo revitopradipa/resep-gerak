@@ -22,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="id" className="h-full antialiased">
+    <html lang="id" className="h-full antialiased" data-scroll-behavior="smooth">
       <head>
         {/* Google Fonts — loaded via link tags to avoid Tailwind v4 @import ordering issues */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

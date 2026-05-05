@@ -161,7 +161,7 @@ export default function BodyPartsSection() {
           {/* Floating Interaction Points */}
           {points.map((pt, i) => (
             <Link
-              href={`/articles?bodyPart=${encodeURIComponent(pt.label)}`}
+              href={`/articles?type=BODY_PART&category=${encodeURIComponent(pt.label)}`}
               key={`${view}-${i}`}
               className="absolute group z-10 animate-fade-in block"
               style={{ top: pt.top, left: pt.left, transform: 'translate(-50%, -50%)' }}

@@ -5,35 +5,35 @@ const books = [
     title: "VO2MAX",
     subtitle: "Understanding Aerobic Capacity",
     color: "#0C2D3D",
-    accent: "#0794B9",
+    accent: "#EBBA07",
     icon: "sprint",
   },
   {
     title: "Running Economy",
     subtitle: "Optimizing Efficiency & Performance",
     color: "#2d4a3e",
-    accent: "#0794B9",
+    accent: "#EBBA07",
     icon: "directions_run",
   },
   {
     title: "Eminence Edge",
     subtitle: "Peak Performance Mechanics",
     color: "#0C2D3D",
-    accent: "#0794B9",
+    accent: "#EBBA07",
     icon: "psychology",
   },
   {
     title: "OA Lutut",
     subtitle: "Penatalaksanaan & Rehabilitasi",
     color: "#3a4a64",
-    accent: "#0794B9",
+    accent: "#EBBA07",
     icon: "rheumatology",
   },
   {
     title: "80/20 Rule",
     subtitle: "Balancing Training Intensity",
     color: "#0C2D3D",
-    accent: "#0794B9",
+    accent: "#EBBA07",
     icon: "pie_chart",
   },
 ];
@@ -43,7 +43,7 @@ export default function LibrarySection() {
     <section
       id="library"
       className="py-20 md:py-24 px-6"
-      style={{ background: "#E8EAF6" }}
+      style={{ background: "#EFF7FA" }}
     >
       <div className="max-w-[1280px] mx-auto text-center">
         {/* Header */}

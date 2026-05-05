@@ -75,7 +75,7 @@ export default function SportsSection() {
         </div>
         <div className="grid gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[280px] grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-flow-dense">
           {sportsOptions.map((sport, idx) => (
-            <Link href={`/articles?sport=${encodeURIComponent(sport.name)}`} key={idx} className={`relative overflow-hidden rounded-2xl group block ${sport.className}`}>
+            <Link href={`/articles?type=SPORT_TYPE&category=${encodeURIComponent(sport.name)}`} key={idx} className={`relative overflow-hidden rounded-2xl group block ${sport.className}`}>
               <img
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 src={sport.img}
@@ -83,7 +83,7 @@ export default function SportsSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex flex-col justify-end p-8 z-10 pointer-events-none">
                 <h3 className="font-oswald text-xl md:text-2xl font-bold mb-2">{sport.name}</h3>
-                <p className="font-inter text-xs md:text-sm text-white/70">{sport.desc}</p>
+                <p className="font-inter text-xs md:text-sm text-[white/70]">{sport.desc}</p>
               </div>
             </Link>
           ))}

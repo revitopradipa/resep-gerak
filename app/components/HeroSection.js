@@ -12,7 +12,6 @@ export default function HeroSection() {
           loop
           playsInline
           className="absolute inset-0 w-full h-full object-cover"
-          poster="https://lh3.googleusercontent.com/aida-public/AB6AXuDDHNtWRMh1fyZuFstyVkeBEt4SvKmOpOcr1FLfiPH76PpTRCXG0raVbvWER0QuHiPi-n9KIBmN4PYhHr5uS5ydohr9-_fOkrOo94iBMG4VgG8HA4bQAP8mEcCkFUKSZ3iVjl9ffjWJIT1G24PwM28Ae-BoyN9ucPyt1pqlhNvC_y5tcaG6epMhv8d2HZ-lw6Zq1pSTVfE-gZCUkI2M4SKdYU_zqzec2NpTZq_b9CkU_1NnY1hZoDXapqq8RlU6xCAVh8gWbLH0ohJb"
         >
           <source src="/hero-video.mp4" type="video/mp4" />
         </video>

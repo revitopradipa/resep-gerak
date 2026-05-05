@@ -31,13 +31,13 @@ export default function Navbar({ theme = "dark" }) {
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-            ? "nav-glass shadow-md py-3"
-            : "bg-transparent py-5"
+          ? "nav-glass shadow-md py-3"
+          : "bg-transparent py-5"
           }`}
       >
         <div className="max-w-[1280px] mx-auto flex items-center justify-between px-6 lg:px-8">
           {/* Brand */}
-          <Link href="/#hero" className="flex items-center gap-2 group">
+          <Link href="/" className="flex items-center gap-2 group">
             <img
               src="/Logo_ResepGerak_2.svg"
               alt="Resep Gerak Logo"
@@ -58,8 +58,8 @@ export default function Navbar({ theme = "dark" }) {
                 key={link.href}
                 href={link.href}
                 className={`font-lexend uppercase tracking-wider font-semibold text-xs px-4 py-2 rounded-lg transition-all duration-200 hover:bg-accent-gold/10 hover:text-accent-gold ${scrolled || theme === "light"
-                    ? "text-on-surface-variant"
-                    : "text-white/80 hover:text-white"
+                  ? "text-on-surface-variant"
+                  : "text-white/80 hover:text-white"
                   }`}
               >
                 {link.label}

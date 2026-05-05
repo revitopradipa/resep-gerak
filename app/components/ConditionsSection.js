@@ -57,7 +57,7 @@ export default function ConditionsSection() {
             {conditions.map((c, i) => (
               <Link
                 key={i}
-                href={`/articles?medicalIssue=${encodeURIComponent(c.name)}`}
+                href={`/articles?type=MEDICAL_CONDITION&category=${encodeURIComponent(c.name)}`}
                 className="condition-card bg-surface-container-lowest rounded-2xl border border-outline-variant/30 p-4 md:p-6 flex flex-col items-center justify-center text-center hover:border-accent-gold/60 transition-all duration-300 group shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] hover:shadow-[0_15px_30px_-10px_rgba(7,148,185,0.15)] reveal"
                 style={{ transitionDelay: `${i * 50}ms` }}
               >

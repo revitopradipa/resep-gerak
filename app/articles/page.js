@@ -1,549 +1,292 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import { supabase } from "../../utils/supabaseClient";
+import ArticleFilterBar from "../components/ArticleFilterBar";
 
-const allArticles = [
-  {
-    tag: "VIDEO COURSE",
-    title: "Manajemen Mobilitas Panggul untuk Pelari",
-    icon: "schedule",
-    meta1: "45 Menit",
-    meta2: "12 Modul",
-    img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Panggul", "Kaki"],
-      sports: ["Lari & Atletik"],
-      medicalIssues: ["Kekakuan Sendi"]
-    }
-  },
-  {
-    tag: "SCIENTIFIC ARTICLE",
-    title: "Neuromuscular Training & Pencegahan ACL",
-    icon: "article",
-    meta1: "15 Menit Baca",
-    meta2: "Riset Klinis",
-    img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Lutut"],
-      sports: ["Sepak Bola", "Basket", "Lari & Atletik"],
-      medicalIssues: ["Cedera ACL"]
-    }
-  },
-  {
-    tag: "PROTOCOL GUIDE",
-    title: "Rehabilitasi Pasca-Operasi Meniskus",
-    icon: "book",
-    meta1: "E-Book PDF",
-    meta2: "80 Halaman",
-    img: "https://images.unsplash.com/photo-1579684385127-1ef15d508118?w=600&h=800&fit=crop",
-    type: "Cedera",
-    categories: {
-      bodyParts: ["Lutut"],
-      sports: ["Sepak Bola", "Basket"],
-      medicalIssues: ["Robekan Meniskus"]
-    }
-  },
-  {
-    tag: "SCIENTIFIC ARTICLE",
-    title: "Pentingnya Recovery Pasca Latihan Berat",
-    icon: "article",
-    meta1: "10 Menit Baca",
-    meta2: "Panduan Umum",
-    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Seluruh Tubuh"],
-      sports: ["Crossfit & Powerlifting", "Lari & Atletik"],
-      medicalIssues: ["Kelelahan Otot"]
-    }
-  },
-  {
-    tag: "PROTOCOL GUIDE",
-    title: "Panduan Pemanasan Dinamis untuk Sepak Bola",
-    icon: "book",
-    meta1: "E-Book PDF",
-    meta2: "25 Halaman",
-    img: "https://images.unsplash.com/photo-1518605368461-1e1e1160a28f?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Lutut", "Pergelangan Kaki", "Paha"],
-      sports: ["Sepak Bola"],
-      medicalIssues: ["Kram Otot"]
-    }
-  },
-  {
-    tag: "VIDEO COURSE",
-    title: "Koreksi Postur Tubuh bagi Pekerja Kantoran",
-    icon: "schedule",
-    meta1: "30 Menit",
-    meta2: "5 Modul",
-    img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Punggung", "Leher", "Bahu"],
-      sports: ["Pelatihan Umum"],
-      medicalIssues: ["Nyeri Punggung Bawah", "Nyeri Leher"]
-    }
-  },
-  {
-    tag: "SCIENTIFIC ARTICLE",
-    title: "Olahraga Ramah Sendi untuk Penderita Artritis",
-    icon: "article",
-    meta1: "12 Menit Baca",
-    meta2: "Tips Medis",
-    img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Lutut", "Panggul"],
-      sports: ["Renang", "Sepeda"],
-      medicalIssues: ["Artritis"]
-    }
-  },
-  {
-    tag: "PROTOCOL GUIDE",
-    title: "Panduan Gerak bagi Penyandang Diabetes Tipe 2",
-    icon: "book",
-    meta1: "E-Book PDF",
-    meta2: "45 Halaman",
-    img: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Seluruh Tubuh"],
-      sports: ["Pelatihan Umum", "Lari & Atletik"],
-      medicalIssues: ["Diabetes"]
-    }
-  },
-  {
-    tag: "VIDEO COURSE",
-    title: "Rehabilitasi Bahu Pasca Cedera Voli",
-    icon: "schedule",
-    meta1: "60 Menit",
-    meta2: "8 Modul",
-    img: "https://images.unsplash.com/photo-1612872087720-bb876e2e67d1?w=600&h=800&fit=crop",
-    type: "Cedera",
-    categories: {
-      bodyParts: ["Bahu", "Lengan"],
-      sports: ["Voli"],
-      medicalIssues: ["Cedera Bahu"]
-    }
-  },
-  {
-    tag: "SCIENTIFIC ARTICLE",
-    title: "Membangun Ketahanan Jantung dengan Sepeda",
-    icon: "article",
-    meta1: "8 Menit Baca",
-    meta2: "Gaya Hidup",
-    img: "https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Dada", "Paru-Paru", "Kaki"],
-      sports: ["Sepeda"],
-      medicalIssues: ["Jantung Koroner", "Hipertensi"]
-    }
-  },
-  {
-    tag: "PROTOCOL GUIDE",
-    title: "Latihan Pernapasan untuk Asma saat Hiking",
-    icon: "book",
-    meta1: "Infografis PDF",
-    meta2: "10 Halaman",
-    img: "https://images.unsplash.com/photo-1551632811-561732d1e306?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Paru-Paru", "Dada"],
-      sports: ["Hiking & Outdoor"],
-      medicalIssues: ["Asma"]
-    }
-  },
-  {
-    tag: "VIDEO COURSE",
-    title: "Pemulihan Skoliosis melalui Yoga & Pilates",
-    icon: "schedule",
-    meta1: "40 Menit",
-    meta2: "6 Modul",
-    img: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=600&h=800&fit=crop",
-    type: "Cedera",
-    categories: {
-      bodyParts: ["Punggung", "Tulang Belakang"],
-      sports: ["Pelatihan Umum"],
-      medicalIssues: ["Skoliosis"]
-    }
-  },
-  {
-    tag: "SCIENTIFIC ARTICLE",
-    title: "Latihan Beban untuk Mencegah Sarcopenia",
-    icon: "article",
-    meta1: "14 Menit Baca",
-    meta2: "Riset Klinis",
-    img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Seluruh Tubuh"],
-      sports: ["Crossfit & Powerlifting"],
-      medicalIssues: ["Sarcopenia", "Osteoporosis"]
-    }
-  },
-  {
-    tag: "PROTOCOL GUIDE",
-    title: "Aktivitas Fisik untuk Mengatasi Obesitas",
-    icon: "book",
-    meta1: "E-Book PDF",
-    meta2: "50 Halaman",
-    img: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Seluruh Tubuh"],
-      sports: ["Lari & Atletik", "Renang", "Sepeda"],
-      medicalIssues: ["Obesitas", "Diabetes"]
-    }
-  },
-  {
-    tag: "VIDEO COURSE",
-    title: "Panduan Latihan Pasca Stroke Ringan",
-    icon: "schedule",
-    meta1: "1 Jam 20 Menit",
-    meta2: "15 Modul",
-    img: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=600&h=800&fit=crop",
-    type: "Cedera",
-    categories: {
-      bodyParts: ["Seluruh Tubuh"],
-      sports: ["Pelatihan Umum"],
-      medicalIssues: ["Stroke"]
-    }
-  },
-  {
-    tag: "SCIENTIFIC ARTICLE",
-    title: "Penanganan Nyeri Otot akibat Fibromyalgia",
-    icon: "article",
-    meta1: "11 Menit Baca",
-    meta2: "Panduan Medis",
-    img: "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&h=800&fit=crop",
-    type: "Pencegahan",
-    categories: {
-      bodyParts: ["Seluruh Tubuh"],
-      sports: ["Pelatihan Umum", "Renang"],
-      medicalIssues: ["Fibromyalgia", "Depresi"]
-    }
-  }
-];
+// ─── Shared Article Card UI ───
+const ArticleCard = ({ article, showBadge = false }) => (
+  <Link
+    href={`/articles/${article.slug}`}
+    className="flex flex-col group cursor-pointer w-full h-full bg-white rounded-2xl p-4 border border-transparent shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_30px_-4px_rgba(7,148,185,0.15)] hover:border-[#0794B9]/20 transition-all duration-500 hover:-translate-y-1"
+  >
+    {/* Image Container */}
+    <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-5 bg-[#EBF5F6]">
+      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      <img
+        src={article.illustration_image_url || "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&h=800&fit=crop"}
+        alt={article.title}
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
 
-const CustomDropdown = ({ label, value, options, onChange, placeholder }) => {
-  const [isOpen, setIsOpen] = useState(false);
+      {showBadge && article.sub_categories?.name && (
+        <span className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-sm text-[#0794B9] text-[10px] font-bold px-3 py-1.5 rounded-lg shadow-sm uppercase z-20 tracking-wider">
+          {article.sub_categories.name}
+        </span>
+      )}
+    </div>
+
+    {/* Text Content */}
+    <div className="flex flex-col flex-1 px-1">
+      <h3 className="font-lexend font-bold text-gray-900 text-base md:text-lg leading-snug mb-3 group-hover:text-[#0794B9] transition-colors line-clamp-2">
+        {article.title}
+      </h3>
+      <div className="mt-auto flex items-center gap-2.5 pt-2 border-t border-gray-50">
+        <div className="w-7 h-7 rounded-full bg-[#EBF5F6] flex items-center justify-center">
+          <span className="material-symbols-outlined text-[#0794B9] text-[14px]">edit_document</span>
+        </div>
+        <p className="font-inter text-xs text-gray-500 font-medium truncate">
+          {article.author_name || "dr. Andi Kurniawan, Sp.KO"}
+        </p>
+      </div>
+    </div>
+  </Link>
+);
+
+// ─── Subcategory Slider UI ───
+const ArticleSlider = ({ subCategoryName, articles }) => {
+  const scrollRef = useRef(null);
+
+  const scrollLeft = () => {
+    if (scrollRef.current) scrollRef.current.scrollBy({ left: -320, behavior: 'smooth' });
+  };
+
+  const scrollRight = () => {
+    if (scrollRef.current) scrollRef.current.scrollBy({ left: 320, behavior: 'smooth' });
+  };
+
+  if (!articles || articles.length === 0) return null;
 
   return (
-    <div className="relative flex flex-col gap-2">
-      <label className="font-lexend text-xs text-white/60 uppercase tracking-widest font-semibold">{label}</label>
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        onBlur={() => setTimeout(() => setIsOpen(false), 200)}
-        className="w-full flex items-center justify-between bg-[#021E2B] text-white rounded-xl px-4 md:px-5 py-3.5 md:py-4 border border-white/5 hover:bg-white/5 hover:border-accent-gold/50 focus:outline-none focus:border-accent-gold transition-all font-inter text-sm shadow-inner"
-      >
-        <span className={value === 'All' ? 'text-white/40' : 'text-white font-medium'}>
-          {value === 'All' ? placeholder : value}
-        </span>
-        <span className={`material-symbols-outlined text-white/40 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
-          expand_more
-        </span>
-      </button>
+    <div className="mb-16 relative">
+      {/* Seamless Subcategory Title */}
+      <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center gap-3">
+          <div className="w-1.5 h-6 bg-[#0794B9] rounded-full"></div>
+          <h2 className="font-lexend font-bold text-xl md:text-2xl text-[#021E2B] tracking-tight">
+            {subCategoryName.toUpperCase()}
+          </h2>
+        </div>
 
-      {isOpen && (
-        <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-[#0C2D3D] border border-white/10 rounded-xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] z-50 max-h-60 overflow-y-auto hide-scrollbar animate-fade-in-up">
-          <button
-            onClick={() => { onChange('All'); setIsOpen(false); }}
-            className={`w-full text-left px-5 py-3 font-inter text-sm transition-colors ${value === 'All' ? 'bg-accent-gold/10 text-accent-gold font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
-          >
-            {placeholder}
+        {/* Nav Controls */}
+        <div className="hidden md:flex gap-2">
+          <button onClick={scrollLeft} className="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-500 flex items-center justify-center hover:border-[#0794B9] hover:text-[#0794B9] transition-all shadow-sm">
+            <span className="material-symbols-outlined text-sm">arrow_back_ios_new</span>
           </button>
-          {options.map(opt => (
-            <button
-              key={opt}
-              onClick={() => { onChange(opt); setIsOpen(false); }}
-              className={`w-full text-left px-5 py-3 font-inter text-sm transition-colors ${value === opt ? 'bg-accent-gold/10 text-accent-gold font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}`}
-            >
-              {opt}
-            </button>
+          <button onClick={scrollRight} className="w-10 h-10 rounded-full bg-white border border-gray-200 text-gray-500 flex items-center justify-center hover:border-[#0794B9] hover:text-[#0794B9] transition-all shadow-sm">
+            <span className="material-symbols-outlined text-sm">arrow_forward_ios</span>
+          </button>
+        </div>
+      </div>
+
+      <div className="relative group/slider -mx-6 px-6 md:mx-0 md:px-0">
+        {/* Scroll Container */}
+        <div
+          ref={scrollRef}
+          className="flex overflow-x-auto gap-4 md:gap-6 hide-scrollbar snap-x snap-mandatory pb-6 w-full"
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {articles.map((article, i) => (
+            <div key={article.id || i} className="snap-start shrink-0 w-[280px] md:w-[320px]">
+              <ArticleCard article={article} />
+            </div>
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
-export default function ArticlesPage() {
-  const [filterType, setFilterType] = useState('All');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+// ─── Inner Content ───
+function ArticlesContent() {
+  const searchParams = useSearchParams();
+  const selectedType = searchParams.get('type') || 'ALL';
+  const categoryParam = searchParams.get('category') || 'ALL_CATEGORIES';
 
-  const [filterBodyPart, setFilterBodyPart] = useState('All');
-  const [filterSport, setFilterSport] = useState('All');
-  const [filterMedicalIssue, setFilterMedicalIssue] = useState('All');
-
-  // Derive unique categories from the articles data
-  const uniqueBodyParts = useMemo(() => {
-    const parts = new Set();
-    allArticles.forEach(a => a.categories?.bodyParts?.forEach(p => parts.add(p)));
-    return Array.from(parts).sort();
-  }, []);
-
-  const uniqueSports = useMemo(() => {
-    const items = new Set();
-    allArticles.forEach(a => a.categories?.sports?.forEach(p => items.add(p)));
-    return Array.from(items).sort();
-  }, []);
-
-  const uniqueMedicalIssues = useMemo(() => {
-    const items = new Set();
-    allArticles.forEach(a => a.categories?.medicalIssues?.forEach(p => items.add(p)));
-    return Array.from(items).sort();
-  }, []);
+  const [categories, setCategories] = useState([]);
+  const [masterData, setMasterData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
+    async function fetchAllData() {
+      try {
+        const [catRes, articleRes] = await Promise.all([
+          supabase.from('categories').select('*').order('name'),
+          supabase
+            .from('articles')
+            .select(`
+              id, title, slug, illustration_image_url, author_name, created_at,
+              sub_category_id,
+              sub_categories (id, name),
+              article_categories (
+                category_id,
+                categories (id, type, name)
+              )
+            `)
+            .eq('is_published', true)
+            .order('created_at', { ascending: false })
+        ]);
 
-    const search = params.get('search');
-    if (search) setSearchQuery(search);
+        if (catRes.error) throw catRes.error;
+        if (articleRes.error) throw articleRes.error;
 
-    // Read specific category params from URL
-    const bodyPart = params.get('bodyPart');
-    if (bodyPart) setFilterBodyPart(bodyPart);
+        setCategories(catRes.data || []);
+        setMasterData(articleRes.data || []);
 
-    const sport = params.get('sport');
-    if (sport) setFilterSport(sport);
-
-    const medicalIssue = params.get('medicalIssue');
-    if (medicalIssue) setFilterMedicalIssue(medicalIssue);
+      } catch (err) {
+        console.error('Error fetching data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    fetchAllData();
   }, []);
 
-  const filteredArticles = useMemo(() => {
-    return allArticles.filter(article => {
-      // 1. Filter by Type (Pencegahan / Cedera)
-      if (filterType !== 'All' && article.type !== filterType) return false;
+  const isAll = selectedType === 'ALL';
+  let displayedArticles = [];
+  let displayedSubCats = [];
 
-      // 2. Category Selectors
-      if (filterBodyPart !== 'All') {
-        if (!article.categories?.bodyParts?.includes(filterBodyPart)) return false;
-      }
-      if (filterSport !== 'All') {
-        if (!article.categories?.sports?.includes(filterSport)) return false;
-      }
-      if (filterMedicalIssue !== 'All') {
-        if (!article.categories?.medicalIssues?.includes(filterMedicalIssue)) return false;
-      }
+  if (!isLoading) {
+    displayedArticles = masterData.filter(article => {
+      if (isAll) return true;
+      const hasMatchingType = article.article_categories?.some(
+        ac => ac.categories?.type === selectedType
+      );
+      if (!hasMatchingType) return false;
 
-      // 4. Search text
-      if (searchQuery) {
-        const query = searchQuery.toLowerCase();
-        const matchTitle = article.title.toLowerCase().includes(query);
-        const matchBody = article.categories?.bodyParts.some(bp => bp.toLowerCase().includes(query));
-        const matchSports = article.categories?.sports.some(sp => sp.toLowerCase().includes(query));
-        const matchIssues = article.categories?.medicalIssues.some(mi => mi.toLowerCase().includes(query));
-
-        return matchTitle || matchBody || matchSports || matchIssues;
+      if (categoryParam !== 'ALL_CATEGORIES') {
+        return article.article_categories?.some(
+          ac => ac.categories?.name === categoryParam
+        );
       }
-
       return true;
     });
-  }, [filterType, filterBodyPart, filterSport, filterMedicalIssue, searchQuery]);
+
+    if (!isAll && displayedArticles.length > 0) {
+      const grouped = {};
+      displayedArticles.forEach(article => {
+        const subId = article.sub_category_id || 'universal';
+        const subName = article.sub_categories?.name || 'Materi Umum';
+
+        if (!grouped[subId]) {
+          grouped[subId] = {
+            id: subId,
+            name: subName,
+            articles: []
+          };
+        }
+        grouped[subId].articles.push(article);
+      });
+      displayedSubCats = Object.values(grouped);
+    }
+  }
 
   return (
-    <>
-      <Navbar />
+    <main className="min-h-screen bg-[#EFF7FA] pt-24 md:pt-32 pb-20 font-inter">
 
-      <main className="min-h-screen bg-[#0C2D3D] pt-32 pb-20">
-        <div className="max-w-[1280px] mx-auto px-6">
-          {/* Header */}
-          <div className="mb-12">
-            <Link href="/" className="inline-flex items-center text-white/60 hover:text-white transition-colors mb-6 font-inter text-sm">
-              <span className="material-symbols-outlined text-sm mr-2">arrow_back</span>
-              Kembali ke Beranda
-            </Link>
-            <h1 className="font-lexend font-bold text-4xl md:text-5xl text-white mb-4">
-              Semua Artikel & Resep
+      {/* Seamless Header / Filter Section - Removed background box & border */}
+      <div className="relative z-40 mb-10 md:mb-16">
+        <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+
+          {/* Title Area */}
+          <div className="max-w-2xl">
+            <span className="font-lexend text-[#0794B9] font-semibold text-xs md:text-sm tracking-wider uppercase mb-3 block">
+              Pusat Pengetahuan
+            </span>
+            <h1 className="font-lexend font-extrabold text-3xl md:text-5xl text-[#021E2B] leading-tight mb-4">
+              Eksplorasi Edukasi Medis & Olahraga
             </h1>
-            <p className="font-inter text-sm md:text-base text-white/60 leading-relaxed max-w-2xl">
-              Eksplorasi ribuan materi edukasi medis dan tutorial video yang divalidasi oleh dewan spesialis kedokteran olahraga. Mulai dari panduan protokol hingga riset saintifik terbaru.
+            <p className="text-gray-500 text-base md:text-lg leading-relaxed max-w-xl">
+              Temukan ribuan resep gerak, panduan pencegahan, dan penanganan cedera yang divalidasi oleh spesialis kedokteran olahraga.
             </p>
           </div>
 
-          {/* Filters UI Panel */}
-          <div className="mb-8 md:mb-12 bg-white/5 border border-white/10 rounded-2xl md:rounded-3xl p-5 md:p-8 shadow-lg transition-all duration-300">
-
-            {/* Top row: Search & Primary Filters */}
-            <div className="flex flex-col lg:flex-row gap-4 md:gap-6 justify-between items-start lg:items-center">
-              {/* Search & Mobile Toggle */}
-              <div className="flex gap-3 w-full lg:w-1/3">
-                <div className="w-full relative">
-                  <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-white/40">search</span>
-                  <input
-                    type="text"
-                    placeholder="Cari artikel, panduan..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-[#021E2B] text-white placeholder-white/40 rounded-xl pl-11 md:pl-12 pr-4 py-3.5 md:py-4 border border-white/5 focus:outline-none focus:border-accent-gold transition-colors font-inter shadow-inner text-sm md:text-base"
-                  />
-                </div>
-
-                {/* Mobile Filter Toggle Button */}
-                <button
-                  onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-                  className={`md:hidden flex items-center justify-center px-4 rounded-xl border transition-colors ${isMobileFiltersOpen ? 'bg-accent-gold text-white border-accent-gold' : 'bg-[#021E2B] text-white/60 border-white/5 hover:bg-white/5'}`}
-                >
-                  <span className="material-symbols-outlined">tune</span>
-                </button>
-              </div>
-
-              <div className="flex w-full lg:w-auto overflow-x-auto hide-scrollbar pb-1 -mb-1">
-                {/* Type Filter */}
-                <div className="flex bg-[#021E2B] p-1.5 rounded-xl border border-white/5 w-full min-w-max">
-                  {['All', 'Pencegahan', 'Cedera'].map(type => (
-                    <button
-                      key={type}
-                      onClick={() => setFilterType(type)}
-                      className={`flex-1 px-5 md:px-6 py-2 md:py-2.5 rounded-lg font-inter text-sm transition-all whitespace-nowrap ${filterType === type ? 'bg-accent-gold text-white font-bold shadow-md' : 'text-white/60 hover:text-white hover:bg-white/5'}`}
-                    >
-                      {type === 'All' ? 'Semua Kondisi' : type === 'Cedera' ? 'Penanganan Cedera' : type}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Expandable Section for Categories */}
-            <div className={`transition-all duration-300 ${isMobileFiltersOpen ? 'block mt-6 md:mt-8' : 'hidden md:block md:mt-8'}`}>
-              {/* Divider */}
-              <div className="w-full h-px bg-white/5 mb-6 md:mb-8"></div>
-
-              {/* Category Selectors */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-4 md:mb-0">
-                <CustomDropdown
-                  label="Bagian Tubuh"
-                  value={filterBodyPart}
-                  options={uniqueBodyParts}
-                  onChange={setFilterBodyPart}
-                  placeholder="Semua Bagian Tubuh"
-                />
-                <CustomDropdown
-                  label="Olahraga"
-                  value={filterSport}
-                  options={uniqueSports}
-                  onChange={setFilterSport}
-                  placeholder="Semua Olahraga"
-                />
-                <CustomDropdown
-                  label="Kondisi Medis"
-                  value={filterMedicalIssue}
-                  options={uniqueMedicalIssues}
-                  onChange={setFilterMedicalIssue}
-                  placeholder="Semua Kondisi Medis"
-                />
-              </div>
-
-              {/* Active Filters Display */}
-              {(filterBodyPart !== 'All' || filterSport !== 'All' || filterMedicalIssue !== 'All' || filterType !== 'All') && (
-                <div className="pt-4 md:pt-6 flex flex-wrap items-center gap-2 animate-fade-in">
-                  <span className="font-inter text-[10px] md:text-xs text-white/40 mr-1 md:mr-2">Filter Aktif:</span>
-
-                  {filterType !== 'All' && (
-                    <span className="px-2.5 md:px-3 py-1 md:py-1.5 bg-accent-gold/20 border border-accent-gold/30 text-accent-gold rounded-full font-inter text-[10px] md:text-xs flex items-center gap-1">
-                      {filterType}
-                      <button onClick={() => setFilterType('All')} className="hover:text-white transition-colors"><span className="material-symbols-outlined text-[10px] md:text-[12px] leading-none">close</span></button>
-                    </span>
-                  )}
-
-                  {filterBodyPart !== 'All' && (
-                    <span className="px-2.5 md:px-3 py-1 md:py-1.5 bg-white/10 border border-white/20 text-white rounded-full font-inter text-[10px] md:text-xs flex items-center gap-1">
-                      {filterBodyPart}
-                      <button onClick={() => setFilterBodyPart('All')} className="hover:text-accent-gold transition-colors"><span className="material-symbols-outlined text-[10px] md:text-[12px] leading-none">close</span></button>
-                    </span>
-                  )}
-
-                  {filterSport !== 'All' && (
-                    <span className="px-2.5 md:px-3 py-1 md:py-1.5 bg-white/10 border border-white/20 text-white rounded-full font-inter text-[10px] md:text-xs flex items-center gap-1">
-                      {filterSport}
-                      <button onClick={() => setFilterSport('All')} className="hover:text-accent-gold transition-colors"><span className="material-symbols-outlined text-[10px] md:text-[12px] leading-none">close</span></button>
-                    </span>
-                  )}
-
-                  {filterMedicalIssue !== 'All' && (
-                    <span className="px-2.5 md:px-3 py-1 md:py-1.5 bg-white/10 border border-white/20 text-white rounded-full font-inter text-[10px] md:text-xs flex items-center gap-1">
-                      {filterMedicalIssue}
-                      <button onClick={() => setFilterMedicalIssue('All')} className="hover:text-accent-gold transition-colors"><span className="material-symbols-outlined text-[10px] md:text-[12px] leading-none">close</span></button>
-                    </span>
-                  )}
-
-                  <button
-                    onClick={() => {
-                      setFilterType('All'); setFilterBodyPart('All'); setFilterSport('All'); setFilterMedicalIssue('All'); setSearchQuery('');
-                    }}
-                    className="text-[10px] md:text-xs font-inter text-white/40 hover:text-white underline ml-1 md:ml-2 transition-colors"
-                  >
-                    Reset Semua
-                  </button>
-                </div>
-              )}
-            </div>
+          {/* Dropdown Filters Container */}
+          <div className="flex-shrink-0 w-full lg:w-auto">
+            <ArticleFilterBar availableCategories={categories} />
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {filteredArticles.length > 0 ? (
-              filteredArticles.map((item, i) => (
-                <Link key={i} href="/articles/test-id" className="group relative rounded-xl overflow-hidden h-[450px] cursor-pointer block">
-                  <img
-                    src={item.img}
-                    alt={item.title}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#021E2B] via-[#0C2D3D]/70 to-transparent" />
-
-                  <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
-                    <span className="font-lexend text-[10px] font-bold text-[#0794B9] uppercase tracking-widest mb-3">
-                      {item.tag}
-                    </span>
-                    <h3 className="font-lexend text-xl md:text-2xl font-bold text-white mb-4 leading-snug">
-                      {item.title}
-                    </h3>
-                    <div className="flex items-center text-xs text-white/60 font-inter">
-                      <span className="material-symbols-outlined text-sm mr-2" style={{ fontVariationSettings: "'FILL' 0" }}>{item.icon}</span>
-                      <span>{item.meta1}</span>
-                      <span className="mx-2">•</span>
-                      <span>{item.meta2}</span>
-                    </div>
-                  </div>
-                </Link>
-              ))
-            ) : (
-              <div className="col-span-full py-20 flex flex-col items-center justify-center text-center">
-                <div className="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center mb-4">
-                  <span className="material-symbols-outlined text-3xl text-white/40">search_off</span>
-                </div>
-                <h3 className="font-lexend font-bold text-xl text-white mb-2">Tidak ada artikel ditemukan</h3>
-                <p className="font-inter text-white/50 text-sm max-w-md">
-                  Coba gunakan kata kunci lain atau ubah filter untuk menemukan apa yang Anda cari.
-                </p>
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setFilterType('All');
-                    setFilterBodyPart('All');
-                    setFilterSport('All');
-                    setFilterMedicalIssue('All');
-                  }}
-                  className="mt-6 font-inter text-sm text-accent-gold hover:text-accent-gold-hover underline transition-colors"
-                >
-                  Reset Filter
-                </button>
-              </div>
-            )}
-          </div>
         </div>
-      </main>
+      </div>
 
+      {/* Content Area */}
+      <div className="max-w-[1440px] mx-auto px-6 md:px-12 w-full min-h-screen">
+
+        {isLoading ? (
+          <div className="flex flex-col items-center justify-center py-32 animate-fade-in-up">
+            <div className="relative w-16 h-16">
+              <div className="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-[#0794B9] border-t-transparent animate-spin"></div>
+            </div>
+            <p className="font-inter text-gray-500 mt-6 font-medium animate-pulse">Menyiapkan materi edukasi...</p>
+          </div>
+        ) : isAll ? (
+          displayedArticles.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8 animate-fade-in-up">
+              {displayedArticles.map((article, i) => (
+                <div key={article.id || i} className="animate-fade-in-up opacity-0 h-full" style={{ animationDelay: `${(i % 12) * 50}ms`, animationFillMode: 'forwards' }}>
+                  <ArticleCard article={article} showBadge={true} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-32 bg-transparent animate-scale-in">
+              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm">
+                <span className="material-symbols-outlined text-4xl text-gray-300">menu_book</span>
+              </div>
+              <h3 className="font-lexend font-bold text-2xl text-gray-800 mb-3">Belum Ada Materi</h3>
+              <p className="font-inter text-gray-500 text-center max-w-md">
+                Saat ini belum ada materi edukasi atau resep gerakan yang dipublikasikan di platform.
+              </p>
+            </div>
+          )
+        ) : (
+          displayedSubCats.length > 0 ? (
+            <div className="animate-fade-in-up flex flex-col gap-4">
+              {displayedSubCats.map(subCat => (
+                <ArticleSlider
+                  key={subCat.id}
+                  subCategoryName={subCat.name}
+                  articles={subCat.articles}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-32 bg-transparent animate-scale-in">
+              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mb-6 shadow-sm">
+                <span className="material-symbols-outlined text-4xl text-gray-300">search_off</span>
+              </div>
+              <h3 className="font-lexend font-bold text-2xl text-gray-800 mb-3">Pencarian Kosong</h3>
+              <p className="font-inter text-gray-500 text-center max-w-md">
+                Materi edukasi untuk kategori <strong className="text-[#0794B9] font-semibold">{categoryParam !== 'ALL_CATEGORIES' ? categoryParam : 'ini'}</strong> belum tersedia. Coba kategori lain.
+              </p>
+            </div>
+          )
+        )}
+
+      </div>
+    </main>
+  );
+}
+
+export default function ArticlesPage() {
+  return (
+    <>
+      <Navbar theme="light" />
+      <Suspense fallback={
+        <main className="min-h-screen bg-[#F8FAFC] pt-24 md:pt-32 pb-20 font-inter flex flex-col items-center justify-center">
+          <div className="relative w-16 h-16">
+            <div className="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+            <div className="absolute inset-0 rounded-full border-4 border-[#0794B9] border-t-transparent animate-spin"></div>
+          </div>
+        </main>
+      }>
+        <ArticlesContent />
+      </Suspense>
       <Footer />
     </>
   );
