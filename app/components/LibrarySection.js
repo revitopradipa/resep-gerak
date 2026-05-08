@@ -67,7 +67,6 @@ export default function LibrarySection() {
             <a
               key={i}
               href="/SAMPLE.pdf"
-              download={`${book.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`}
               target="_blank"
               rel="noopener noreferrer"
               className="group reveal"
