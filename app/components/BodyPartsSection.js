@@ -14,55 +14,55 @@ export default function BodyPartsSection() {
 
   const frontPoints = [
     {
-      label: "KEPALA & LEHER",
+      label: "Kepala & Leher",
       desc: "Penanganan nyeri servikogenik & optimasi postur.",
       top: "15%",
       left: "50%",
     },
     {
-      label: "BAHU",
+      label: "Bahu",
       desc: "Rotator cuff, impingement, & stabilitas sendi bahu.",
       top: "23%",
       left: "60%",
     },
     {
-      label: "DADA & PUNGGUNG ATAS",
+      label: "Dada & Punggung Atas",
       desc: "Mobilitas toraks & penanganan nyeri dada non-kardiak.",
       top: "30%",
       left: "50%",
     },
     {
-      label: "SIKU",
+      label: "Siku",
       desc: "Rehabilitasi tennis elbow & golfer's elbow.",
       top: "33%",
       left: "75%",
     },
+    // {
+    //   label: "PERUT",
+    //   desc: "Stabilitas inti (core), pemulihan diastasis recti & penguatan abdominal.",
+    //   top: "42%",
+    //   left: "50%",
+    // },
     {
-      label: "PERUT",
-      desc: "Stabilitas inti (core), pemulihan diastasis recti & penguatan abdominal.",
-      top: "42%",
-      left: "50%",
-    },
-    {
-      label: "PERGELANGAN TANGAN",
+      label: "Pergelangan Tangan",
       desc: "Penanganan carpal tunnel & tendinitis.",
       top: "23%",
       left: "29%",
     },
     {
-      label: "PINGGUL",
+      label: "Pinggul & Pelvis",
       desc: "Bursitis, impingement & fleksibilitas panggul.",
       top: "44%",
       left: "62%",
     },
     {
-      label: "LUTUT",
+      label: "Lutut",
       desc: "Pemulihan ACL, meniscus & nyeri patellofemoral.",
       top: "64%",
       left: "32%",
     },
     {
-      label: "PERGELANGAN KAKI",
+      label: "Pergelangan Kaki & Kaki",
       desc: "Sprain ankle, plantar fasciitis & stabilitas kaki.",
       top: "83%",
       left: "29%",
@@ -70,50 +70,50 @@ export default function BodyPartsSection() {
   ];
 
   const backPoints = [
+    // {
+    //   label: "LEHER BELAKANG",
+    //   desc: "Ketegangan servikal & sakit kepala tegang.",
+    //   top: "17%",
+    //   left: "54%",
+    // },
+    // {
+    //   label: "TULANG BELIKAT",
+    //   desc: "Nyeri skapula & stabilitas bahu belakang.",
+    //   top: "23%",
+    //   left: "50%",
+    // },
+    // {
+    //   label: "PUNGGUNG ATAS",
+    //   desc: "Nyeri rhomboid & perbaikan postur toraks.",
+    //   top: "26%",
+    //   left: "58%",
+    // },
+    // {
+    //   label: "SIKU BELAKANG",
+    //   desc: "Olecranon bursitis & triceps tendinopathy.",
+    //   top: "38%",
+    //   left: "45%",
+    // },
     {
-      label: "LEHER BELAKANG",
-      desc: "Ketegangan servikal & sakit kepala tegang.",
-      top: "17%",
-      left: "54%",
-    },
-    {
-      label: "TULANG BELIKAT",
-      desc: "Nyeri skapula & stabilitas bahu belakang.",
-      top: "23%",
-      left: "50%",
-    },
-    {
-      label: "PUNGGUNG ATAS",
-      desc: "Nyeri rhomboid & perbaikan postur toraks.",
-      top: "26%",
-      left: "58%",
-    },
-    {
-      label: "SIKU BELAKANG",
-      desc: "Olecranon bursitis & triceps tendinopathy.",
-      top: "38%",
-      left: "45%",
-    },
-    {
-      label: "PUNGGUNG BAWAH",
+      label: "Punggung Bawah",
       desc: "Nyeri lumbal, sciatica & stabilitas inti.",
       top: "38%",
       left: "56%",
     },
+    // {
+    //   label: "GLUTEUS",
+    //   desc: "Piriformis syndrome & kelemahan glute.",
+    //   top: "49%",
+    //   left: "56%",
+    // },
+    // {
+    //   label: "HAMSTRING",
+    //   desc: "Ketegangan hamstring & tendinopathy lutut.",
+    //   top: "67%",
+    //   left: "64%",
+    // },
     {
-      label: "GLUTEUS",
-      desc: "Piriformis syndrome & kelemahan glute.",
-      top: "49%",
-      left: "56%",
-    },
-    {
-      label: "HAMSTRING",
-      desc: "Ketegangan hamstring & tendinopathy lutut.",
-      top: "67%",
-      left: "64%",
-    },
-    {
-      label: "BETIS & ACHILLES",
+      label: "Betis & Shin",
       desc: "Achilles tendinitis & kram betis.",
       top: "76%",
       left: "39%",

@@ -1,16 +1,16 @@
 const conditions = [
-  { name: "Diabetes", icon: "bloodtype" },
+  { name: "Diabetes Tipe 2", icon: "bloodtype" },
   { name: "Hipertensi", icon: "vital_signs" },
   { name: "Obesitas", icon: "monitor_weight" },
   { name: "Osteoporosis", icon: "skeleton" },
   { name: "Asma", icon: "pulmonology" },
-  { name: "Jantung Koroner", icon: "cardiology" },
-  { name: "Stroke", icon: "neurology" },
-  { name: "Artritis", icon: "rheumatology" },
-  { name: "Depresi", icon: "psychology" },
-  { name: "Skoliosis", icon: "orthopedics" },
-  { name: "Sarcopenia", icon: "accessibility_new" },
-  { name: "Fibromyalgia", icon: "body_system" },
+  { name: "Penyakit Jantung", icon: "cardiology" },
+  { name: "Dementia-Alzheimer", icon: "neurology" },
+  { name: "Osteoartritis", icon: "rheumatology" },
+  { name: "Depresi & Anxiety", icon: "psychology" },
+  { name: "Kehamilan", icon: "pregnancy" },
+  // { name: "Sarcopenia", icon: "accessibility_new", slug: "sarcopenia" },
+  // { name: "Fibromyalgia", icon: "body_system", slug: "fibro" },
 ];
 
 import Link from "next/link";
