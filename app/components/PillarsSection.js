@@ -5,8 +5,8 @@ export default function PillarsSection() {
         <span className="font-lexend text-xs md:text-sm font-semibold tracking-widest text-[#0794B9] uppercase block mb-3">
           FONDASI KAMI
         </span>
-        <h2 className="font-oswald text-3xl md:text-5xl lg:text-6xl text-white uppercase font-bold tracking-wide">
-          Gerakmu / Obatmu / Hidupmu
+        <h2 className="font-oswald text-2xl md:text-3xl lg:text-4xl text-white uppercase font-bold tracking-wide">
+          PILIH GERAK BERDASARKAN TUBUH, OLAHRAGA, ATAU KONDISI MEDIS
         </h2>
       </div>
       <div className="max-w-[1280px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">

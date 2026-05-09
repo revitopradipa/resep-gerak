@@ -119,21 +119,6 @@ export default function PhilosophySection() {
                   />
                 </div>
 
-                <div>
-                  <label className="block font-lexend uppercase tracking-wider font-semibold text-xs text-on-surface-variant mb-2">
-                    Keluhan Utama (Opsional)
-                  </label>
-                  <textarea
-                    placeholder="Ceritakan singkat tentang keluhan atau tujuan Anda..."
-                    value={formData.message}
-                    onChange={(e) =>
-                      setFormData({ ...formData, message: e.target.value })
-                    }
-                    rows={3}
-                    className="w-full border border-outline-variant/40 rounded-xl p-3 md:p-3.5 bg-surface-container-low text-on-surface font-inter focus:bg-surface-container-lowest focus:ring-2 focus:ring-accent-gold focus:border-accent-gold transition-all outline-none resize-none"
-                  />
-                </div>
-
                 <button
                   type="submit"
                   className="w-full font-lexend font-bold uppercase tracking-widest text-sm bg-primary-container text-white py-4 rounded-xl hover:bg-primary-dark active:scale-[0.98] transition-all shadow-md hover:shadow-lg mt-4 flex items-center justify-center gap-2"
@@ -145,7 +130,7 @@ export default function PhilosophySection() {
                     </>
                   ) : (
                     <>
-                      Mulai Langkahmu
+                      Subscribe
                       <span className="material-symbols-outlined text-lg transition-transform group-hover:translate-x-1">arrow_forward</span>
                     </>
                   )}

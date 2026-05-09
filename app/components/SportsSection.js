@@ -2,25 +2,25 @@ const sportsOptions = [
   {
     name: "Lari",
     desc: "Meningkatkan efisiensi mekanika lari dan pencegahan cedera stres pada kaki.",
-    img: "https://images.unsplash.com/photo-1532444458054-01a7dd3e9fca?w=600&h=800&fit=crop",
+    img: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=2070&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
   {
     name: "Sepak Bola",
     desc: "Pelatihan ketangkasan lateral, akselerasi, dan stabilitas ligamen lutut.",
-    img: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1655918059192-f6332e645272?q=80&w=1974&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
   {
     name: "Tenis",
     desc: "Penguatan footwork eksplosif dan stabilisasi pergelangan tangan.",
-    img: "https://images.unsplash.com/photo-1622279457486-62dcc4a4977b?w=800&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?q=80&w=2070&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
   {
     name: "Padel",
     desc: "Optimalisasi kekuatan rotasi tubuh dan kesehatan sendi bahu.",
-    img: "https://images.unsplash.com/photo-1626244233630-9092497645f0?w=600&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1612534847738-b3af9bc31f0c?q=80&w=2070&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
   {
@@ -32,7 +32,7 @@ const sportsOptions = [
   {
     name: "Hyrox",
     desc: "Kombinasi kekuatan fungsional dan daya tahan kardiovaskular intensitas tinggi.",
-    img: "https://images.unsplash.com/photo-1599058917233-97f9342b4674?w=600&h=800&fit=crop",
+    img: "https://images.unsplash.com/photo-1739283180408-e64cfd394c5e?w=900&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
   {
@@ -50,7 +50,7 @@ const sportsOptions = [
   {
     name: "Renang",
     desc: "Mobilitas bahu tingkat lanjut dan efisiensi biomekanik dalam air.",
-    img: "https://images.unsplash.com/photo-1530549387789-4c1017266635?w=800&h=400&fit=crop",
+    img: "https://images.unsplash.com/photo-1519315901367-f34ff9154487?w=900&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
   {
@@ -68,7 +68,7 @@ const sportsOptions = [
   {
     name: "Sepeda",
     desc: "Kekuatan paha (quadriceps) dan koreksi postur untuk punggung bawah.",
-    img: "https://images.unsplash.com/photo-1541625602330-2277a4c46182?w=600&h=800&fit=crop",
+    img: "https://plus.unsplash.com/premium_photo-1670002508281-fa935a5318eb?q=80&w=2070&auto=format&fit=crop",
     className: "md:col-span-2 lg:col-span-1",
   },
 ];

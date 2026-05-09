@@ -5,17 +5,16 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
 import { supabase } from "../../../utils/supabaseClient";
+import ReactMarkdown from "react-markdown"; // <-- Import ReactMarkdown
 
 // Helper function to safely convert standard YouTube links to embeddable iframes
 const getYouTubeEmbedUrl = (url) => {
   if (!url) return '';
   try {
     if (url.includes('watch?v=')) {
-      // Handles: https://www.youtube.com/watch?v=XYZ
       return url.replace('watch?v=', 'embed/').split('&')[0];
     }
     if (url.includes('youtu.be/')) {
-      // Handles: https://youtu.be/XYZ
       return url.replace('youtu.be/', 'youtube.com/embed/').split('?')[0];
     }
     return url;
@@ -104,6 +103,17 @@ export default function ArticleDetail({ params }) {
             Kembali ke Semua Artikel
           </Link>
 
+          {/* Featured Hero Image (Moved Above Header) */}
+          {article.illustration_image_url && (
+            <figure className="mb-8 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
+              <img
+                src={article.illustration_image_url}
+                alt={article.title}
+                className="w-full h-auto max-h-[450px] object-cover"
+              />
+            </figure>
+          )}
+
           {/* Article Header */}
           <header className="mb-10">
             {article.sub_categories?.name && (
@@ -116,7 +126,7 @@ export default function ArticleDetail({ params }) {
             </h1>
 
             {article.short_description && (
-              <p className="font-inter text-lg md:text-xl text-gray-600 leading-relaxed mb-6 italic">
+              <p className="font-inter text-lg md:text-xl text-gray-600 leading-relaxed mb-6 italic border-l-4 border-[#0794B9] pl-4">
                 {article.short_description}
               </p>
             )}
@@ -134,26 +144,37 @@ export default function ArticleDetail({ params }) {
             </div>
           </header>
 
-          {/* Featured Hero Image */}
-          {article.illustration_image_url && (
-            <figure className="mb-12 rounded-2xl overflow-hidden shadow-lg border border-gray-100">
-              <img
-                src={article.illustration_image_url}
-                alt={article.title}
-                className="w-full h-auto max-h-[450px] object-cover"
-              />
-            </figure>
-          )}
+          {/* Core Article Body (Now using ReactMarkdown & Prose) */}
+          <div className="font-inter prose prose-lg max-w-none prose-headings:font-lexend prose-headings:text-[#021E2B] prose-strong:text-[#021E2B] prose-a:text-[#0794B9] prose-img:rounded-xl text-gray-700 leading-relaxed text-justify mb-12">
+            <ReactMarkdown>
+              {article.content}
+            </ReactMarkdown>
+          </div>
 
-          {/* Core Article Body */}
-          <div
-            className="font-inter text-base md:text-lg text-gray-700 leading-relaxed space-y-6 text-justify prose prose-blue max-w-none"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+          {/* Media Section: Photo Movement Recipes */}
+          {article.movement_recipe_photos && article.movement_recipe_photos.length > 0 && (
+            <div className="mt-16 pt-8 border-t border-gray-100">
+              <h3 className="text-2xl font-bold font-lexend text-[#021E2B] mb-6 flex items-center gap-2">
+                <span className="material-symbols-outlined text-[#0794B9]">image</span>
+                Foto Resep Gerakan
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {article.movement_recipe_photos.map((photo, index) => (
+                  <figure key={index} className="rounded-xl overflow-hidden shadow-sm border border-gray-200 aspect-square group cursor-pointer">
+                    <img
+                      src={photo}
+                      alt={`Resep gerakan ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </figure>
+                ))}
+              </div>
+            </div>
+          )}
 
           {/* Media Section: YouTube Movement Recipes */}
           {article.youtube_video_links && article.youtube_video_links.length > 0 && (
-            <div className="mt-16">
+            <div className="mt-16 pt-8 border-t border-gray-100">
               <h3 className="text-2xl font-bold font-lexend text-[#021E2B] mb-6 flex items-center gap-2">
                 <span className="material-symbols-outlined text-[#0794B9]">play_circle</span>
                 Video Resep Gerakan
@@ -170,27 +191,6 @@ export default function ArticleDetail({ params }) {
                       className="w-full h-full"
                     ></iframe>
                   </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Media Section: Photo Movement Recipes */}
-          {article.movement_recipe_photos && article.movement_recipe_photos.length > 0 && (
-            <div className="mt-16">
-              <h3 className="text-2xl font-bold font-lexend text-[#021E2B] mb-6 flex items-center gap-2">
-                <span className="material-symbols-outlined text-[#0794B9]">image</span>
-                Foto Resep Gerakan
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {article.movement_recipe_photos.map((photo, index) => (
-                  <figure key={index} className="rounded-xl overflow-hidden shadow-sm border border-gray-200 aspect-square group cursor-pointer">
-                    <img
-                      src={photo}
-                      alt={`Resep gerakan ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </figure>
                 ))}
               </div>
             </div>
