@@ -5,7 +5,9 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import Link from "next/link";
 import { supabase } from "../../../utils/supabaseClient";
-import ReactMarkdown from "react-markdown"; // <-- Import ReactMarkdown
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkBreaks from "remark-breaks";
 
 // Helper function to safely convert standard YouTube links to embeddable iframes
 const getYouTubeEmbedUrl = (url) => {
@@ -37,7 +39,10 @@ export default function ArticleDetail({ params }) {
           .from('articles')
           .select(`
             *,
-            sub_categories (name)
+            sub_categories (name),
+            article_categories (
+              categories (name)
+            )
           `)
           .eq('slug', slug)
           .single();
@@ -116,20 +121,42 @@ export default function ArticleDetail({ params }) {
 
           {/* Article Header */}
           <header className="mb-10">
-            {article.sub_categories?.name && (
-              <span className="inline-block font-lexend text-[10px] font-bold text-[#0794B9] uppercase tracking-widest mb-4 bg-[#0794B9]/10 px-3 py-1 rounded-full">
-                {article.sub_categories.name}
-              </span>
-            )}
+            <div className="flex flex-wrap items-center gap-3 mb-4">
+
+              {/* 1. Render Kategori Induk */}
+              {article.article_categories?.map((ac, index) => {
+                const categoryName = ac.categories?.name;
+                if (!categoryName) return null;
+                return (
+                  <span
+                    key={index}
+                    className="inline-flex font-lexend text-[10px] font-bold text-gray-600 uppercase tracking-widest bg-gray-100 px-3 py-1.5 rounded-full border border-gray-200"
+                  >
+                    {categoryName}
+                  </span>
+                );
+              })}
+
+              {/* 2. Render Sub-Kategori */}
+              {article.sub_categories?.name && (
+                <span className="inline-flex font-lexend text-[10px] font-bold text-[#0794B9] uppercase tracking-widest bg-[#0794B9]/10 px-3 py-1.5 rounded-full border border-[#0794B9]/20">
+                  {article.sub_categories.name}
+                </span>
+              )}
+
+            </div>
+
             <h1 className="font-oswald font-bold text-4xl md:text-5xl text-primary-container mb-4 leading-tight text-[#021E2B]">
               {article.title}
             </h1>
 
-            {article.short_description && (
-              <p className="font-inter text-lg md:text-xl text-gray-600 leading-relaxed mb-6 italic border-l-4 border-[#0794B9] pl-4">
-                {article.short_description}
-              </p>
-            )}
+            {
+              article.short_description && (
+                <p className="font-inter text-md md:text-lg text-gray-600 leading-relaxed mb-6 italic border-l-4 border-[#0794B9] pl-4">
+                  {article.short_description}
+                </p>
+              )
+            }
 
             <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 font-inter border-t border-b border-gray-200 py-4">
               <div className="flex items-center">
@@ -144,9 +171,114 @@ export default function ArticleDetail({ params }) {
             </div>
           </header>
 
+          {/* Highlight */}
+          {article.highlight && (
+            <div className="mb-10 p-6 bg-gradient-to-br from-[#0794B9]/10 to-transparent border-l-4 border-[#0794B9] rounded-r-2xl shadow-sm flex gap-4 items-start">
+              <div className="w-10 h-10 rounded-full bg-[#0794B9]/10 flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-[#0794B9]">
+                  lightbulb
+                </span>
+              </div>
+              <div>
+                <h4 className="font-lexend font-bold text-[#021E2B] text-sm uppercase tracking-wider mb-2">
+                  Sorotan Utama
+                </h4>
+                <p className="font-inter text-gray-800 leading-relaxed font-medium">
+                  {article.highlight}
+                </p>
+              </div>
+            </div>
+          )}
+
           {/* Core Article Body (Now using ReactMarkdown & Prose) */}
           <div className="font-inter prose prose-lg max-w-none prose-headings:font-lexend prose-headings:text-[#021E2B] prose-strong:text-[#021E2B] prose-a:text-[#0794B9] prose-img:rounded-xl text-gray-700 leading-relaxed text-justify mb-12">
-            <ReactMarkdown>
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm, remarkBreaks]}
+              components={{
+                p: ({ children, ...props }) => (
+                  <p className="mb-6 last:mb-0 leading-relaxed" {...props}>
+                    {children}
+                  </p>
+                ),
+
+                h2: ({ children, ...props }) => (
+                  <h2 className="text-2xl md:text-3xl font-bold font-lexend text-[#021E2B] mt-10 mb-4" {...props}>
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children, ...props }) => (
+                  <h3 className="text-xl md:text-2xl font-bold font-lexend text-[#021E2B] mt-8 mb-3" {...props}>
+                    {children}
+                  </h3>
+                ),
+                h4: ({ children, ...props }) => (
+                  <h4 className="text-lg font-bold font-lexend text-[#021E2B] mt-6 mb-2" {...props}>
+                    {children}
+                  </h4>
+                ),
+
+                a: ({ href, children, ...props }) => (
+                  <a
+                    href={href}
+                    target={href?.startsWith('http') ? '_blank' : undefined}
+                    rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    className="text-[#0794B9] font-semibold hover:text-[#057594] hover:underline underline-offset-4 transition-colors"
+                    {...props}
+                  >
+                    {children}
+                  </a>
+                ),
+
+                blockquote: ({ children, ...props }) => (
+                  <blockquote
+                    className="border-l-4 border-[#0794B9] pl-6 italic text-gray-700 my-8 bg-[#0794B9]/5 py-4 pr-6 rounded-r-2xl shadow-sm [&>p]:mb-0"
+                    {...props}
+                  >
+                    {children}
+                  </blockquote>
+                ),
+
+                ul: ({ children, ...props }) => (
+                  <ul className="list-disc list-outside pl-6 my-6 space-y-2 marker:text-[#0794B9]" {...props}>
+                    {children}
+                  </ul>
+                ),
+
+                ol: ({ children, ...props }) => (
+                  <ol className="list-decimal list-outside pl-6 my-6 space-y-2 marker:text-[#0794B9] marker:font-bold" {...props}>
+                    {children}
+                  </ol>
+                ),
+
+                table: ({ children, ...props }) => (
+                  <div className="overflow-hidden my-10 rounded-2xl border border-gray-200 shadow-sm">
+                    <table className="min-w-full text-left border-collapse" {...props}>
+                      {children}
+                    </table>
+                  </div>
+                ),
+                thead: ({ children, ...props }) => (
+                  <thead className="bg-[#021E2B] text-white" {...props}>
+                    {children}
+                  </thead>
+                ),
+                th: ({ children, ...props }) => (
+                  <th className="px-6 py-4 text-xs font-bold uppercase tracking-wider" {...props}>
+                    {children}
+                  </th>
+                ),
+                tr: ({ children, ...props }) => (
+                  <tr className="transition-colors duration-200 hover:bg-[#0794B9]/5 even:bg-gray-50/50" {...props}>
+                    {children}
+                  </tr>
+                ),
+                td: ({ children, ...props }) => (
+                  <td className="px-6 py-4 text-sm text-gray-700 border-b border-gray-100" {...props}>
+                    {children}
+                  </td>
+                ),
+              }}
+            >
               {article.content}
             </ReactMarkdown>
           </div>
@@ -197,15 +329,24 @@ export default function ArticleDetail({ params }) {
           )}
 
           {/* Supporting References */}
-          {article.supporting_references && (
+          {article.supporting_references && article.supporting_references.length > 0 && (
             <div className="mt-16 p-6 md:p-8 bg-gray-50 rounded-2xl border border-gray-200">
               <h3 className="text-lg font-bold font-lexend text-gray-800 mb-4 flex items-center gap-2">
                 <span className="material-symbols-outlined text-gray-500">menu_book</span>
                 Referensi Pendukung
               </h3>
-              <div className="text-sm text-gray-600 font-inter whitespace-pre-wrap leading-relaxed">
-                {article.supporting_references}
-              </div>
+
+              {/* Kita ubah menjadi <ul> agar menjadi daftar berpoin */}
+              <ul className="text-sm text-gray-600 font-inter leading-relaxed break-words list-disc list-outside pl-5 space-y-3">
+                {Array.isArray(article.supporting_references)
+                  ? article.supporting_references.map((ref, index) => (
+                    <li key={index}>{ref}</li>
+                  ))
+                  : article.supporting_references.split('\n').map((ref, index) => (
+                    <li key={index}>{ref}</li>
+                  ))
+                }
+              </ul>
             </div>
           )}
 
