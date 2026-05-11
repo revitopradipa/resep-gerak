@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Resep Gerak — Movement is Medicine",
+  title: "Resep Gerak — Gerak adalah Obat",
   description:
     "Portal edukasi gerak pertama di Indonesia yang dikembangkan oleh sports medicine expert. Resep Gerak menyediakan panduan gerak berbasis bukti untuk berbagai kondisi medis dan olahraga.",
   keywords: [
@@ -13,7 +13,7 @@ export const metadata = {
     "resep gerak",
   ],
   openGraph: {
-    title: "Resep Gerak — Movement is Medicine",
+    title: "Resep Gerak — Gerak adalah Obat",
     description:
       "Portal edukasi gerak pertama di Indonesia. Panduan gerak berbasis bukti untuk kondisi medis dan olahraga.",
     type: "website",

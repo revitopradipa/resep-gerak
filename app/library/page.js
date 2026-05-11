@@ -91,7 +91,7 @@ export default function LibraryPage() {
               Kembali ke Beranda
             </Link>
             <h1 className="font-oswald font-bold text-4xl md:text-5xl text-primary-container uppercase mb-4">
-              Koleksi Digital Library
+              Koleksi E-Book
             </h1>
             <p className="font-inter text-sm md:text-base text-on-surface-variant leading-relaxed max-w-2xl">
               Eksplorasi seluruh koleksi buku digital dan dokumen PDF yang disusun dan dikurasi oleh para ahli kedokteran olahraga. Panduan komprehensif untuk meningkatkan performa dan proses pemulihan Anda.

@@ -80,7 +80,7 @@ export default function PhilosophySection() {
 
             <div className="pl-4">
               <h3 className="font-oswald text-3xl font-bold text-primary-container mb-3">
-                KONSULTASI AWAL
+                BERGABUNG DENGAN KAMI
               </h3>
               <p className="font-inter text-sm md:text-base text-on-surface-variant mb-8 leading-relaxed">
                 Dapatkan artikel eksklusif dan panduan resep gerak mingguan langsung dari ahli medis olahraga kami.

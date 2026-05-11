@@ -49,10 +49,10 @@ export default function LibrarySection() {
         {/* Header */}
         <div className="mb-4 reveal">
           <p className="font-lexend uppercase tracking-widest text-accent-gold text-xs font-semibold mb-3">
-            Digital Library
+            Perpustakaan Digital
           </p>
           <h2 className="font-oswald font-bold text-primary-container text-3xl md:text-4xl uppercase leading-tight mb-4">
-            ETALASE GERAK & KESEHATAN MEDIS
+            ETALASE E-BOOK GERAK & KESEHATAN MEDIS
           </h2>
           <p className="font-inter text-sm text-on-surface-variant leading-relaxed max-w-2xl mx-auto">
             Koleksi buku digital dan PDF yang dikurasi oleh tim medis kami.

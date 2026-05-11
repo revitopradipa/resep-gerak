@@ -73,7 +73,7 @@ export default function Navbar({ theme = "dark" }) {
               href="/#subscribe"
               className="hidden sm:inline-flex font-lexend uppercase tracking-wider font-bold text-xs bg-accent-gold text-white px-5 py-2.5 rounded-lg hover:bg-accent-gold-hover transition-all active:scale-95 shadow-sm"
             >
-              Konsultasi
+              Login
             </Link>
 
             {/* Hamburger */}

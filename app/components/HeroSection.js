@@ -26,14 +26,14 @@ export default function HeroSection() {
           className="font-oswald font-bold text-white text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] uppercase tracking-tight mb-6 drop-shadow-lg animate-fade-in-up"
           style={{ animationDelay: '0.4s' }}
         >
-          <span className="text-accent-gold">MOVEMENT</span> IS MEDICINE
+          <span className="text-accent-gold">GERAK</span> ADALAH OBAT
         </h1>
 
         <p
           className="font-inter text-surface-container-highest text-lg md:text-xl max-w-2xl mx-auto mb-10 drop-shadow leading-relaxed animate-fade-in-up"
           style={{ animationDelay: '0.6s' }}
         >
-          Empowering your journey through clinical sports medicine and an active lifestyle.
+          Mendukung langkah Anda menuju gaya hidup aktif melalui pendekatan klinis kedokteran olahraga.
         </p>
 
         <a
@@ -41,7 +41,7 @@ export default function HeroSection() {
           className="inline-flex items-center justify-center font-lexend font-semibold text-base bg-accent-gold text-white px-8 py-4 rounded-lg hover:bg-accent-gold-hover hover:scale-105 active:scale-95 transition-all duration-200 shadow-md animate-fade-in-up"
           style={{ animationDelay: '0.8s' }}
         >
-          DISCOVER YOUR PATH
+          TEMUKAN JALANMU
         </a>
       </div>
 

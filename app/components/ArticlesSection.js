@@ -78,8 +78,11 @@ export default function ArticlesSection() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div className="max-w-2xl">
+            <span className="font-lexend text-sm font-bold text-[#0794B9] uppercase tracking-wider mb-2 block">
+              Sains Dibalik Gerak Tubuh
+            </span>
             <h2 className="font-lexend font-bold text-4xl md:text-5xl text-white mb-4">
-              Sains dibalik Gerak Tubuh
+              Pustaka Artikel
             </h2>
             <p className="font-inter text-sm md:text-base text-white/60 leading-relaxed">
               Akses ribuan materi edukasi medis dan tutorial video yang divalidasi oleh

@@ -39,9 +39,9 @@ export default function ConditionsSection() {
           <h2 className="font-oswald font-bold text-primary-container text-4xl md:text-5xl lg:text-6xl leading-[1.1] uppercase tracking-tight mb-8">
             Resep <span className="text-accent-gold">Gerak</span>
             <br />
-            Sesuai
+            Sesuai Dengan
             <br />
-            <span className="text-accent-yellow">Kondisi</span> Anda
+            <span className="text-accent-yellow">Kondisi Medis</span> Anda
           </h2>
 
           <p className="font-inter text-on-surface-variant text-lg leading-relaxed mb-8 font-light">
