@@ -1,83 +1,41 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Link from "next/link";
+import { supabase } from "../../utils/supabaseClient";
 
-const allBooks = [
-  {
-    title: "VO2MAX",
-    subtitle: "Understanding Aerobic Capacity",
-    color: "#0C2D3D",
-    accent: "#0794B9",
-    icon: "sprint",
-  },
-  {
-    title: "Running Economy",
-    subtitle: "Optimizing Efficiency & Performance",
-    color: "#2d4a3e",
-    accent: "#0794B9",
-    icon: "directions_run",
-  },
-  {
-    title: "Eminence Edge",
-    subtitle: "Peak Performance Mechanics",
-    color: "#0C2D3D",
-    accent: "#0794B9",
-    icon: "psychology",
-  },
-  {
-    title: "OA Lutut",
-    subtitle: "Penatalaksanaan & Rehabilitasi",
-    color: "#3a4a64",
-    accent: "#0794B9",
-    icon: "rheumatology",
-  },
-  {
-    title: "80/20 Rule",
-    subtitle: "Balancing Training Intensity",
-    color: "#0C2D3D",
-    accent: "#0794B9",
-    icon: "pie_chart",
-  },
-  {
-    title: "Biomechanics",
-    subtitle: "Physics of Human Movement",
-    color: "#4a3b52",
-    accent: "#0794B9",
-    icon: "accessibility_new",
-  },
-  {
-    title: "Nutrition",
-    subtitle: "Fueling the Athletic Body",
-    color: "#523b3b",
-    accent: "#0794B9",
-    icon: "restaurant",
-  },
-  {
-    title: "Recovery",
-    subtitle: "Science of Tissue Repair",
-    color: "#2c3e50",
-    accent: "#0794B9",
-    icon: "battery_charging_full",
-  },
-  {
-    title: "Tendinopathy",
-    subtitle: "Loading & Rehab Protocols",
-    color: "#0C2D3D",
-    accent: "#0794B9",
-    icon: "medical_services",
-  },
-  {
-    title: "Core Stability",
-    subtitle: "Foundation of Power Transfer",
-    color: "#2d4a3e",
-    accent: "#0794B9",
-    icon: "fitness_center",
-  }
-];
+// Fallback colors for books without cover images
+const bookColors = ["#0C2D3D", "#2d4a3e", "#3a4a64", "#4a3b52", "#523b3b", "#2c3e50"];
+const bookIcons = ["menu_book", "auto_stories", "psychology", "science", "biotech", "medical_services"];
 
 export default function LibraryPage() {
+  const [allBooks, setAllBooks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchEbooks() {
+      try {
+        const { data, error } = await supabase
+          .from("e_books")
+          .select("id, title, slug, description, author_name, cover_image_url, file_url, view_count, created_at")
+          .eq("is_published", true)
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+        setAllBooks(data || []);
+      } catch (err) {
+        console.error("Error fetching ebooks:", err);
+        setAllBooks([]);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    fetchEbooks();
+  }, []);
+
   return (
     <>
       <Navbar theme="light" />
@@ -99,56 +57,99 @@ export default function LibraryPage() {
           </div>
 
           {/* Books Grid */}
-          <div className="flex flex-wrap gap-6 md:gap-8 justify-center sm:justify-start">
-            {allBooks.map((book, i) => (
-              <a
-                key={i}
-                href="/SAMPLE.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative"
-              >
-                <div
-                  className="book-shadow w-[160px] md:w-[180px] h-[230px] md:h-[260px] rounded-lg overflow-hidden relative transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-2xl"
-                  style={{ background: book.color }}
-                >
-                  {/* Book spine line */}
-                  <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-white/10" />
+          {isLoading ? (
+            <div className="flex justify-center items-center h-[300px]">
+              <div className="w-10 h-10 border-4 border-[#0794B9] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+          ) : allBooks.length === 0 ? (
+            <div className="flex flex-col justify-center items-center h-[300px] text-on-surface-variant/60 bg-white/50 rounded-2xl border border-white/80">
+              <span className="material-symbols-outlined text-5xl mb-4 opacity-50">menu_book</span>
+              <p className="font-inter text-base">Belum ada e-book yang dipublikasikan.</p>
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-6 md:gap-8 justify-center sm:justify-start">
+              {allBooks.map((book, i) => {
+                const bgColor = bookColors[i % bookColors.length];
+                const icon = bookIcons[i % bookIcons.length];
 
-                  {/* Content */}
-                  <div className="p-4 flex flex-col h-full justify-between relative z-10">
-                    {/* Decorative lines */}
-                    <div className="absolute top-6 right-4 w-12 h-12 border border-white/10 rounded-sm rotate-12" />
-                    <div className="absolute top-10 right-8 w-8 h-8 border border-white/5 rounded-sm rotate-45" />
+                return (
+                  <a
+                    key={book.id}
+                    href={book.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative"
+                  >
+                    <div
+                      className="book-shadow w-[160px] md:w-[180px] h-[230px] md:h-[260px] rounded-lg overflow-hidden relative transition-transform duration-300 group-hover:-translate-y-2 group-hover:shadow-2xl"
+                      style={{ background: bgColor }}
+                    >
+                      {/* Cover image (if available) */}
+                      {book.cover_image_url && (
+                        <img
+                          src={book.cover_image_url}
+                          alt={book.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                      )}
 
-                    <div>
-                      <p
-                        className="font-oswald font-bold text-xl md:text-2xl uppercase leading-tight"
-                        style={{ color: book.accent }}
-                      >
+                      {/* Book spine line */}
+                      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-white/10" />
+
+                      {/* Content */}
+                      <div className={`p-4 flex flex-col h-full justify-between relative z-10 ${book.cover_image_url ? "bg-gradient-to-t from-black/80 via-black/40 to-transparent" : ""}`}>
+                        {/* Decorative lines */}
+                        {!book.cover_image_url && (
+                          <>
+                            <div className="absolute top-6 right-4 w-12 h-12 border border-white/10 rounded-sm rotate-12" />
+                            <div className="absolute top-10 right-8 w-8 h-8 border border-white/5 rounded-sm rotate-45" />
+                          </>
+                        )}
+
+                        <div>
+                          <p
+                            className="font-oswald font-bold text-xl md:text-2xl uppercase leading-tight"
+                            style={{ color: "#0794B9" }}
+                          >
+                            {book.title}
+                          </p>
+                          {book.description && (
+                            <p className="font-inter text-[10px] text-white/60 mt-1 leading-snug line-clamp-2">
+                              {book.description}
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="flex items-end justify-between">
+                          <span
+                            className="material-symbols-outlined text-white/15 text-4xl"
+                            style={{ fontVariationSettings: "'FILL' 0" }}
+                          >
+                            {icon}
+                          </span>
+                          <span className="font-inter text-[8px] text-white/30 uppercase tracking-wider">
+                            Resep Gerak
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Author & view count tooltip */}
+                    <div className="mt-2 text-center max-w-[180px]">
+                      <p className="font-inter text-xs text-primary-container font-medium truncate">
                         {book.title}
                       </p>
-                      <p className="font-inter text-[10px] text-white/60 mt-1 leading-snug">
-                        {book.subtitle}
-                      </p>
+                      {book.author_name && (
+                        <p className="font-inter text-[10px] text-on-surface-variant/70 truncate">
+                          {book.author_name}
+                        </p>
+                      )}
                     </div>
-
-                    <div className="flex items-end justify-between">
-                      <span
-                        className="material-symbols-outlined text-white/15 text-4xl"
-                        style={{ fontVariationSettings: "'FILL' 0" }}
-                      >
-                        {book.icon}
-                      </span>
-                      <span className="font-inter text-[8px] text-white/30 uppercase tracking-wider">
-                        Resep Gerak
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+                  </a>
+                );
+              })}
+            </div>
+          )}
         </div>
       </main>
 

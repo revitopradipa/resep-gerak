@@ -131,11 +131,8 @@ export default function ArticlesSection() {
             {/* Mobile Horizontal Scroll */}
             <div className="flex md:hidden overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4 pb-8 -mx-6 px-6">
               {libraryItems.map((item, i) => {
-                const isEbook = item.meta1 === "E-Book PDF";
-                const Wrapper = isEbook ? "a" : Link;
-                const linkProps = isEbook
-                  ? { href: "/SAMPLE.pdf", download: `${item.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`, target: "_blank", rel: "noopener noreferrer" }
-                  : { href: item.slug ? `/articles/${item.slug}` : `/articles/test-id` };
+                const Wrapper = Link;
+                const linkProps = { href: item.slug ? `/articles/${item.slug}` : `/articles/test-id` };
 
                 return (
                   <Wrapper key={item.id || i} {...linkProps} className="snap-center shrink-0 w-[85vw] group relative rounded-xl overflow-hidden h-[400px] cursor-pointer block">
@@ -168,11 +165,8 @@ export default function ArticlesSection() {
             {/* Desktop Grid */}
             <div className="hidden md:grid grid-cols-3 gap-6">
               {visibleItems.map((item, i) => {
-                const isEbook = item.meta1 === "E-Book PDF";
-                const Wrapper = isEbook ? "a" : Link;
-                const linkProps = isEbook
-                  ? { href: "/SAMPLE.pdf", download: `${item.title.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`, target: "_blank", rel: "noopener noreferrer" }
-                  : { href: item.slug ? `/articles/${item.slug}` : `/articles/test-id` };
+                const Wrapper = Link;
+                const linkProps = { href: item.slug ? `/articles/${item.slug}` : `/articles/test-id` };
 
                 return (
                   <Wrapper key={item.id || i} {...linkProps} className="group relative rounded-xl overflow-hidden h-[450px] cursor-pointer block">
