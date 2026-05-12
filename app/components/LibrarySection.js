@@ -99,41 +99,39 @@ export default function LibrarySection() {
                     <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-white/10" />
 
                     {/* Content overlay */}
-                    <div className={`p-4 flex flex-col h-full justify-between relative z-10 ${book.cover_image_url ? "bg-gradient-to-t from-black/80 via-black/40 to-transparent" : ""}`}>
-                      {/* Decorative lines */}
-                      {!book.cover_image_url && (
-                        <>
-                          <div className="absolute top-6 right-4 w-12 h-12 border border-white/10 rounded-sm rotate-12" />
-                          <div className="absolute top-10 right-8 w-8 h-8 border border-white/5 rounded-sm rotate-45" />
-                        </>
-                      )}
+                    {!book.cover_image_url && (
+                      <div className="p-4 flex flex-col h-full justify-between relative z-10">
+                        {/* Decorative lines */}
+                        <div className="absolute top-6 right-4 w-12 h-12 border border-white/10 rounded-sm rotate-12" />
+                        <div className="absolute top-10 right-8 w-8 h-8 border border-white/5 rounded-sm rotate-45" />
 
-                      <div>
-                        <p
-                          className="font-oswald font-bold text-xl md:text-2xl uppercase leading-tight"
-                          style={{ color: "#EBBA07" }}
-                        >
-                          {book.title}
-                        </p>
-                        {book.description && (
-                          <p className="font-inter text-[10px] text-white/60 mt-1 leading-snug line-clamp-2">
-                            {book.description}
+                        <div>
+                          <p
+                            className="font-oswald font-bold text-xl md:text-2xl uppercase leading-tight"
+                            style={{ color: "#EBBA07" }}
+                          >
+                            {book.title}
                           </p>
-                        )}
-                      </div>
+                          {book.description && (
+                            <p className="font-inter text-[10px] text-white/60 mt-1 leading-snug line-clamp-2">
+                              {book.description}
+                            </p>
+                          )}
+                        </div>
 
-                      <div className="flex items-end justify-between">
-                        <span
-                          className="material-symbols-outlined text-white/15 text-4xl"
-                          style={{ fontVariationSettings: "'FILL' 0" }}
-                        >
-                          {icon}
-                        </span>
-                        <span className="font-inter text-[8px] text-white/30 uppercase tracking-wider">
-                          Resep Gerak
-                        </span>
+                        <div className="flex items-end justify-between">
+                          <span
+                            className="material-symbols-outlined text-white/15 text-4xl"
+                            style={{ fontVariationSettings: "'FILL' 0" }}
+                          >
+                            {icon}
+                          </span>
+                          <span className="font-inter text-[8px] text-white/30 uppercase tracking-wider">
+                            Resep Gerak
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </a>
               );
