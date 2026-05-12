@@ -4,15 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 
 export default function BodyPartsSection() {
-  const [view, setView] = useState("front");
   const [activePoint, setActivePoint] = useState(null);
 
-  const handleViewChange = (newView) => {
-    setView(newView);
-    setActivePoint(null);
-  };
-
-  const frontPoints = [
+  const points = [
     {
       label: "Kepala & Leher",
       desc: "Penanganan nyeri servikogenik & optimasi postur.",
@@ -23,105 +17,59 @@ export default function BodyPartsSection() {
       label: "Bahu",
       desc: "Rotator cuff, impingement, & stabilitas sendi bahu.",
       top: "23%",
-      left: "60%",
+      left: "40%",
     },
     {
       label: "Dada & Punggung Atas",
       desc: "Mobilitas toraks & penanganan nyeri dada non-kardiak.",
-      top: "30%",
-      left: "50%",
+      top: "28%",
+      left: "54%",
     },
     {
       label: "Siku",
       desc: "Rehabilitasi tennis elbow & golfer's elbow.",
       top: "33%",
-      left: "75%",
+      left: "30%",
     },
-    // {
-    //   label: "PERUT",
-    //   desc: "Stabilitas inti (core), pemulihan diastasis recti & penguatan abdominal.",
-    //   top: "42%",
-    //   left: "50%",
-    // },
     {
       label: "Pergelangan Tangan",
       desc: "Penanganan carpal tunnel & tendinitis.",
-      top: "23%",
-      left: "29%",
+      top: "27%",
+      left: "75%",
+    },
+    {
+      label: "Punggung Bawah",
+      desc: "Nyeri lumbal, sciatica & stabilitas inti.",
+      top: "40%",
+      left: "42%",
     },
     {
       label: "Pinggul & Pelvis",
       desc: "Bursitis, impingement & fleksibilitas panggul.",
-      top: "44%",
-      left: "62%",
+      top: "46%",
+      left: "47%",
     },
     {
       label: "Lutut",
       desc: "Pemulihan ACL, meniscus & nyeri patellofemoral.",
-      top: "64%",
-      left: "32%",
+      top: "61%",
+      left: "70%",
+    },
+    {
+      label: "Betis & Shin",
+      desc: "Achilles tendinitis & kram betis.",
+      top: "71%",
+      left: "30%",
     },
     {
       label: "Pergelangan Kaki & Kaki",
       desc: "Sprain ankle, plantar fasciitis & stabilitas kaki.",
-      top: "83%",
-      left: "29%",
-    },
-  ];
-
-  const backPoints = [
-    // {
-    //   label: "LEHER BELAKANG",
-    //   desc: "Ketegangan servikal & sakit kepala tegang.",
-    //   top: "17%",
-    //   left: "54%",
-    // },
-    // {
-    //   label: "TULANG BELIKAT",
-    //   desc: "Nyeri skapula & stabilitas bahu belakang.",
-    //   top: "23%",
-    //   left: "50%",
-    // },
-    // {
-    //   label: "PUNGGUNG ATAS",
-    //   desc: "Nyeri rhomboid & perbaikan postur toraks.",
-    //   top: "26%",
-    //   left: "58%",
-    // },
-    // {
-    //   label: "SIKU BELAKANG",
-    //   desc: "Olecranon bursitis & triceps tendinopathy.",
-    //   top: "38%",
-    //   left: "45%",
-    // },
-    {
-      label: "Punggung Bawah",
-      desc: "Nyeri lumbal, sciatica & stabilitas inti.",
-      top: "38%",
-      left: "56%",
-    },
-    // {
-    //   label: "GLUTEUS",
-    //   desc: "Piriformis syndrome & kelemahan glute.",
-    //   top: "49%",
-    //   left: "56%",
-    // },
-    // {
-    //   label: "HAMSTRING",
-    //   desc: "Ketegangan hamstring & tendinopathy lutut.",
-    //   top: "67%",
-    //   left: "64%",
-    // },
-    {
-      label: "Betis & Shin",
-      desc: "Achilles tendinitis & kram betis.",
       top: "76%",
-      left: "39%",
+      left: "48%",
     },
   ];
 
-  const points = view === "front" ? frontPoints : backPoints;
-  const imageSrc = view === "front" ? "/fullbody.jpg" : "/bodyback.png";
+  const imageSrc = "/body.jpg";
 
   return (
     <section id="body-parts" className="py-20 md:py-24 bg-[#EFF7FA]">
@@ -133,23 +81,7 @@ export default function BodyPartsSection() {
           PILIH BAGIAN TUBUHMU
         </h2>
 
-        {/* Toggle View */}
-        <div className="flex justify-center mb-8 reveal">
-          <div className="bg-[#0C2D3D]/10 p-1 rounded-xl inline-flex">
-            <button
-              onClick={() => handleViewChange("front")}
-              className={`px-8 py-2.5 rounded-lg font-lexend text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${view === "front" ? "bg-[#0794B9] text-white shadow-md" : "text-[#0C2D3D]/60 hover:text-[#0C2D3D]"}`}
-            >
-              Depan
-            </button>
-            <button
-              onClick={() => handleViewChange("back")}
-              className={`px-8 py-2.5 rounded-lg font-lexend text-sm font-semibold uppercase tracking-wider transition-all duration-300 ${view === "back" ? "bg-[#0794B9] text-white shadow-md" : "text-[#0C2D3D]/60 hover:text-[#0C2D3D]"}`}
-            >
-              Belakang
-            </button>
-          </div>
-        </div>
+
 
         <div className="relative max-w-4xl mx-auto reveal">
           <img
@@ -162,7 +94,7 @@ export default function BodyPartsSection() {
           {points.map((pt, i) => (
             <Link
               href={`/articles?type=BODY_PART&category=${encodeURIComponent(pt.label)}`}
-              key={`${view}-${i}`}
+              key={`point-${i}`}
               className="absolute group z-10 animate-fade-in block"
               style={{ top: pt.top, left: pt.left, transform: 'translate(-50%, -50%)' }}
             >
